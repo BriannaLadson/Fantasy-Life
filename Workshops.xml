@@ -1,0 +1,214 @@
+<library>
+	<!--Types-->
+	<type name="Blacksmith_Workshop">
+		<inherit name="Workshop" />
+		
+		<stat_attr type="string">blacksmithing</stat_attr>
+		
+		<products type="objectlist">Iron_Axe;Iron_Blacksmith_Workshop;Iron_Smelter_Workshop;Iron_Pickaxe</products>
+	</type>
+	
+	<type name="Carpenter_Workshop">
+		<inherit name="Workshop" />
+		
+		<stat_attr type="string">carpentry</stat_attr>
+		
+		<products type="objectlist">Wooden_Carpenter_Workshop;Wooden_Blacksmith_Workshop;Wooden_Smelter_Workshop;Wooden_Axe;Wooden_Pickaxe</products>
+	</type>
+	
+	<type name="Smelter_Workshop">
+		<inherit name="Workshop" />
+		<products type="objectlist">Iron</products>
+		
+		<stat_attr type="string">smelting</stat_attr>
+	</type>
+	
+	<!--Blacksmith Workshop-->
+	<object name="Bone_Blacksmith_Workshop">
+		<inherit name="Blacksmith_Workshop" />
+		
+		<alias>Bone Blacksmith Forge</alias>
+		<main_alias>Bone Blacksmith Forge</main_alias>
+		
+		<material type="object">Bone</material>
+		
+		<base_value type="int">10</base_value>
+	</object>
+	
+	<object name="Wooden_Blacksmith_Workshop">
+		<inherit name="Blacksmith_Workshop" />
+		
+		<alias>Wooden Blacksmith Forge</alias>
+		<main_alias>Wooden Blacksmith Forge</main_alias>
+		
+		<material type="object">Wood</material>
+		
+		<base_value type="int">30</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Wood</key>
+				<value type="int">10</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Stone_Blacksmith_Workshop">
+		<inherit name="Blacksmith_Workshop" />
+		
+		<alias>Stone Blacksmith Forge</alias>
+		<main_alias>Stone Blacksmith Forge</main_alias>
+		
+		<material type="object">Stone</material>
+		
+		<base_value type="int">40</base_value>
+	</object>
+	
+	<object name="Iron_Blacksmith_Workshop">
+		<inherit name="Blacksmith_Workshop" />
+		
+		<alias>Iron Blacksmith Forge</alias>
+		<main_alias>Iron Blacksmith Forge</main_alias>
+		
+		<material type="object">Iron</material>
+		
+		<base_value type="int">100</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Iron</key>
+				<value type="int">10</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<!--Carpenter Workshop-->
+	<object name="Bone_Carpenter_Workshop">
+		<inherit name="Carpenter_Workshop" />
+		
+		<alias>Bone Carpenter Workshop</alias>
+		<main_alias>Bone Carpenter Workshop</main_alias>
+		
+		<material type="object">Bone</material>
+		
+		<base_value type="int">10</base_value>
+	</object>
+	
+	<object name="Wooden_Carpenter_Workshop">
+		<inherit name="Carpenter_Workshop" />
+		
+		<alias>Wooden Carpenter Workshop</alias>
+		<main_alias>Wooden Carpenter Workshop</main_alias>
+		
+		<material type="object">Wood</material>
+		
+		<base_value type="int">30</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Wood</key>
+				<value type="int">10</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Stone_Carpenter_Workshop">
+		<inherit name="Carpenter_Workshop" />
+		
+		<alias>Stone Carpenter Workshop</alias>
+		<main_alias>Stone Carpenter Workshop</main_alias>
+		
+		<material type="object">Stone</material>
+		
+		<base_value type="int">40</base_value>
+	</object>
+	
+	<object name="Iron_Carpenter_Workshop">
+		<inherit name="Carpenter_Workshop" />
+		
+		<alias>Iron Carpenter Workshop</alias>
+		<main_alias>Iron Carpenter Workshop</main_alias>
+		
+		<material type="object">Iron</material>
+		
+		<base_value type="int">100</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Iron</key>
+				<value type="int">10</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<!--Smelter Workshop-->
+	<object name="Bone_Smelter_Workshop">
+		<inherit name="Smelter_Workshop" />
+		
+		<alias>Bone Smelter</alias>
+		<main_alias>Bone Smelter</main_alias>
+		
+		<material type="object">Bone</material>
+		
+		<base_value type="int">10</base_value>
+	</object>
+	
+	<object name="Wooden_Smelter_Workshop">
+		<inherit name="Smelter_Workshop" />
+		
+		<alias>Wooden Smelter</alias>
+		<main_alias>Wooden Smelter</main_alias>
+		
+		<material type="object">Wood</material>
+		
+		<base_value type="int">30</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Wood</key>
+				<value type="int">10</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Stone_Smelter_Workshop">
+		<inherit name="Smelter_Workshop" />
+		
+		<alias>Stone Smelter</alias>
+		<main_alias>Stone Smelter</main_alias>
+		
+		<material type="object">Stone</material>
+		
+		<base_value type="int">40</base_value>
+	</object>
+	
+	<object name="Iron_Smelter_Workshop">
+		<inherit name="Smelter_Workshop" />
+		
+		<alias>Iron Smelter</alias>
+		<main_alias>Iron Smelter</main_alias>
+		
+		<material type="object">Iron</material>
+		
+		<base_value type="int">100</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Iron</key>
+				<value type="int">10</value>
+			</item>
+		</reagents>
+	</object>
+</library>

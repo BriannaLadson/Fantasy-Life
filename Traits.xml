@@ -1,0 +1,28 @@
+<library>
+	<!--Hand Traits-->
+	<object name="Ambidextrous">
+		<inherit name="Hand_Trait" />
+		
+		<alias>Ambidextrous</alias>
+	</object>
+	
+	<object name="Left_Handed">
+		<inherit name="Hand_Trait" />
+		
+		<alias>Left Handed</alias>
+		
+		<hand_stats type="stringlist">
+			<value>left_hand</value>
+		</hand_stats>
+	</object>
+	
+	<object name="Right_Handed">
+		<inherit name="Hand_Trait" />
+		
+		<alias>Right Handed</alias>
+		
+		<hand_stats type="stringlist">
+			<value>right_hand</value>
+		</hand_stats>
+	</object>
+</library>

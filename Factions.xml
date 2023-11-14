@@ -1,0 +1,25 @@
+<library>
+	<function name="Generate_Civ" parameters="culture">
+		<!--Clone-->
+		clone = CloneObject(Civilization)
+		
+		<!--Culture-->
+		if (culture = None) {
+			culture = PickOneObject(game.races)
+		}
+		
+		clone.culture = culture
+		
+		<!--Alias-->
+		do(clone, "gen_alias")
+		
+		<!--game.factions-->
+		list add (game.factions, clone)
+	</function>
+
+	<object name="Civilization">
+		<inherit name="Faction" />
+		
+		<locations type="objectlist" />
+	</object>
+</library>

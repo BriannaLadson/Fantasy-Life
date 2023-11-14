@@ -1,0 +1,214 @@
+<library>
+	<object name="Blacksmith">
+		<inherit name="Role" />
+		
+		<alias>Blacksmith</alias>
+		
+		<items type="dictionary">
+			<item>
+				<key>Bone_Blacksmith_Workshop</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Coal</key>
+				<value type="int">3</value>
+			</item>
+			<item>
+				<key>Iron</key>
+				<value type="int">3</value>
+			</item>
+		</items>
+		
+		<add_loc_inventory type="script">
+			blacksmiths = DictionaryItem(loc.roles, "Blacksmith")
+			
+			for (i, 1, blacksmiths) {
+				coal = DictionaryItem(loc.inventory, "Coal")
+				
+				if (1 > coal) {
+					do(loc, "mod_inventory_value", QuickParams("item_name", "Coal", "mod", 1))
+				}
+				
+				else {
+					product = PickOneObject(this.products)
+					
+					metal = product.material
+					
+					num = DictionaryItem(loc.inventory, metal.name)
+					
+					if (product.units > num) {
+						do(loc, "mod_inventory_value", QuickParams("item_name", metal.name, "mod", product.units))
+					}
+					else {
+						do(loc, "mod_inventory", QuickParams("item_name", "Coal", "mod", -1))
+						do(loc, "mod_inventory", QuickParams("item_name", metal.name, "mod", product.units * -1))
+						do(loc, "mod_inventory", QuickParams("item_name", product.name, "mod", 1))
+						
+						do(loc, "mod_inventory_value", QuickParams("item_name", "Coal", "mod", -1))
+						do(loc, "mod_inventory_value", QuickParams("item_name", metal.name, "mod", product.units * -1))
+					}
+				}
+			}
+		</add_loc_inventory>
+		
+		<products type="objectlist">Iron_Carpenter_Workshop;Iron_Blacksmith_Workshop;Iron_Axe;Iron_Pickaxe;Iron_Smelter_Workshop</products>
+	</object>
+	
+	<object name="Carpenter">
+		<inherit name="Role" />
+		
+		<alias>Carpenter</alias>
+		
+		<items type="dictionary">
+			<item>
+				<key>Bone_Carpenter_Workshop</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Wood</key>
+				<value type="int">3</value>
+			</item>
+		</items>
+		
+		<add_loc_inventory type="script">
+			carpenters = DictionaryItem(loc.roles, "Carpenter")
+			
+			for (i, 1, carpenters) {
+				product = PickOneObject(this.products)
+				
+				wood = DictionaryItem(loc.inventory, "Wood")
+				
+				if (wood >= product.units) {
+					wood_mod = product.units * -1
+					do(loc, "mod_inventory", QuickParams("item_name", "Wood", "mod", wood_mod))
+					do(loc, "mod_inventory_value", QuickParams("item_name", "Wood", "mod", -1 * product.units))
+					
+					do(loc, "mod_inventory", QuickParams("item_name", product.name, "mod", 1))
+					
+					
+				}
+				
+				else {
+					do(loc, "mod_inventory_value", QuickParams("item_name", "Wood", "mod", product.units))
+				}
+			}
+		</add_loc_inventory>
+		
+		<products type="objectlist">Wooden_Carpenter_Workshop;Wooden_Axe;Wooden_Pickaxe;Wooden_Smelter_Workshop;Wooden_Blacksmith_Workshop</products>
+	</object>
+	
+	<object name="Miner">
+		<inherit name="Role" />
+		
+		<alias>Miner</alias>
+		
+		<items type="dictionary">
+			<item>
+				<key>Bone_Pickaxe</key>
+				<value type="int">1</value>
+			</item>
+		</items>
+		
+		<add_loc_inventory type="script">
+			region = loc.parent
+			mineral_chance = region.mineral
+			
+			miners = DictionaryItem(loc.roles, "Miner")
+			
+			
+			for (i, 1, miners) {
+				if (RandomChance(mineral_chance)) {
+					mineral = Get_Obj_By_Weighted_Chance(game.minerals, "mineral_chance")
+					
+					do(loc, "mod_inventory", QuickParams("item_name", mineral.name, "mod", 1))
+				}
+			}
+		</add_loc_inventory>
+	</object>
+	
+	<object name="Peasant">
+		<inherit name="Role" />
+		
+		<alias>Peasant</alias>
+	</object>
+	
+	<object name="Smelter">
+		<inherit name="Role" />
+		
+		<alias>Smelter</alias>
+		
+		<items type="dictionary">
+			<item>
+				<key>Bone_Smelter_Workshop</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Coal</key>
+				<value type="int">3</value>
+			</item>
+			<item>
+				<key>Iron_Ore</key>
+				<value type="int">3</value>
+			</item>
+		</items>
+		
+		<add_loc_inventory type="script">
+			smelters = DictionaryItem(loc.roles, "Smelter")
+			
+			for (i, 1, smelters) {
+				coal = DictionaryItem(loc.inventory, "Coal")
+				
+				if (1 > coal) {
+					do(loc, "mod_inventory_value", QuickParams("item_name", "Coal", "mod", 1))
+				}
+				
+				else {
+					product = PickOneObject(this.products)
+					
+					ore = DictionaryItem(loc.inventory, product.ore.name)
+					
+					if (1 > ore) {
+						do(loc, "mod_inventory_value", QuickParams("item_name", product.ore.name, "mod", 1))
+					}
+					
+					else {
+						do(loc, "mod_inventory", QuickParams("item_name", "Coal", "mod", -1))
+						do(loc, "mod_inventory", QuickParams("item_name", product.ore.name, "mod", -1))
+						do(loc, "mod_inventory", QuickParams("item_name", product.name, "mod", 1))
+						
+						do(loc, "mod_inventory_value", QuickParams("item_name", "Coal", "mod", -1))
+						do(loc, "mod_inventory_value", QuickParams("item_name", product.ore.name, "mod", -1))
+					}
+				}
+			}
+		</add_loc_inventory>
+		
+		<products type="objectlist">Iron</products>
+	</object>
+	
+	<object name="Wood_Cutter">
+		<inherit name="Role" />
+		
+		<alias>Wood Cutter</alias>
+		
+		<items type="dictionary">
+			<item>
+				<key>Bone_Axe</key>
+				<value type="int">1</value>
+			</item>
+		</items>
+		
+		<add_loc_inventory type="script">
+			region = loc.parent
+			fertility = region.fertility
+			
+			wood_cutters = DictionaryItem(loc.roles, "Wood_Cutter")
+			
+			for (i, 1, wood_cutters) {
+				if (RandomChance(region.fertility)) {
+					do(loc, "mod_inventory", QuickParams("item_name", "Wood", "mod", 1))
+				}
+			}
+		</add_loc_inventory>
+	</object>
+</library>

@@ -1,0 +1,65 @@
+<library>
+	<object name="Bone">
+		<inherit name="Material" />
+		
+		<alias>Bone</alias>
+		<main_alias>Bone</main_alias>
+		
+		<is_hard type="boolean">true</is_hard>
+	</object>
+	
+	<object name="Wood">
+		<inherit name="Material" />
+		
+		<alias>Wood</alias>
+		<main_alias>Wood</main_alias>
+		
+		<is_hard type="boolean">true</is_hard>
+		
+		<durability type="int">2</durability>
+		
+		<base_value type="int">3</base_value>
+	</object>
+	
+	<object name="Stone">
+		<inherit name="Material" />
+		<inherit name="Mineral" />
+		
+		<alias>Stone</alias>
+		<main_alias>Stone</main_alias>
+		
+		<is_hard type="boolean">true</is_hard>
+		
+		<durability type="int">3</durability>
+		
+		<base_value type="int">4</base_value>
+		
+		<mineral_chance type="int">66</mineral_chance>
+	</object>
+	
+	<object name="Iron">
+		<inherit name="Material" />
+		
+		<alias>Iron</alias>
+		<main_alias>Iron</main_alias>
+		
+		<is_hard type="boolean">true</is_hard>
+		
+		<durability type="int">4</durability>
+		
+		<base_value type="int">10</base_value>
+		
+		<ore type="object">Iron_Ore</ore>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Iron_Ore</key>
+				<value type="int">1</value>
+			</item>
+		</reagents>
+	</object>
+</library>

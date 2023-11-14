@@ -1,0 +1,136 @@
+<library>
+	<!--World Settings-->
+	<function name="Enter_World_Size">
+		ClearScreen()
+		
+		msg("Enter your desired world size. (May affect game performance!)")
+		
+		get input {
+			if (not IsInt(result)) {
+				Enter_World_Size()
+			}
+			
+			else {
+				world_size = ToInt(result)
+				
+				if (0 >= world_size) {
+					Enter_World_Size()
+				}
+				
+				else {
+					game.world_size = world_size
+					
+					Enter_Civ_Num()
+				}
+			}
+		}
+	</function>
+	
+	<function name="Enter_Civ_Num">
+		ClearScreen()
+		
+		msg("Enter your desired number of civilizations per race.")
+		
+		get input {
+			if (not IsInt(result)) {
+				Enter_Civ_Num()
+			}
+			
+			else {
+				civ_num = ToInt(result)
+				
+				if (0 > civ_num) {
+					Enter_Civ_Num()
+				}
+				else {
+					game.civ_num = civ_num
+					
+					Enter_Settlement_Num()
+				}
+			}
+		}
+	</function>
+	
+	<function name="Enter_Settlement_Num">
+		ClearScreen()
+		
+		msg("Enter your desired number of settlements per civilization.")
+		
+		get input {
+			if (not IsInt(result)) {
+				Enter_Settlement_Num()
+			}
+			
+			else {
+				settlement_num = ToInt(result)
+				
+				if (0 > settlement_num) {
+					Enter_Settlement_Num()
+				}
+				
+				else {
+					game.settlement_num = settlement_num
+					
+					Generate_World()
+				}
+			}
+		}
+	</function>
+	
+	<!--World Generation-->
+	<function name="Generate_World">
+		Generate_Regions()
+		
+		Generate_Civs()
+		
+		Generate_Capitals()
+		Generate_Settlements()
+		
+		player.parent = Character_Creation
+	</function>
+	
+	<function name="Generate_Regions">
+		game.world_map = NewList()
+		
+		for (y, 0, game.world_size - 1) {
+			y_array = NewObjectList()
+			
+			for (x, 0, game.world_size - 1) {
+				region = CloneObject(Region)
+				
+				region.x = x
+				region.y = y
+				
+				do(region, "set")
+				
+				list add (y_array, region)
+			}
+			
+			list add (game.world_map, y_array)
+		}
+	</function>
+	
+	<function name="Generate_Civs">
+		foreach (race, game.races) {
+			for (i, 1, game.civ_num) {
+				Generate_Civ(race)
+			}
+		}
+	</function>
+	
+	<function name="Generate_Capitals">
+		civs = FilterByAttribute(game.factions, "prototype", Civilization)
+		
+		foreach (civ, civs) {
+			Generate_Location(None, civ, true)
+		}
+	</function>
+
+	<function name="Generate_Settlements">
+		civs = FilterByAttribute(game.factions, "prototype", Civilization)
+		
+		foreach (civ, civs) {
+			Generate_Location(None, civ, false)
+		}
+	</function>
+</library>

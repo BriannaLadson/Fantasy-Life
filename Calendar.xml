@@ -1,0 +1,137 @@
+<library>
+	<function name="Get_Time" type="string">
+		<!--Minute-->
+		minute = None
+		
+		if (10 > game.minute_num) {
+			minute = "0" + ToString(game.minute_num)
+		}
+		
+		else {
+			minute = ToString(game.minute_num)
+		}
+		
+		<!--Hour-->
+		hour = None
+		
+		if (game.hour_num = 0 or game.hour_num % 12 = 0) {
+			hour = "12"
+		}
+		
+		else if (game.hour_num > 12) {
+			hour = ToString(game.hour_num % 12)
+		}
+		
+		else {
+			hour = ToString(game.hour_num)
+		}
+		
+		<!--Suffix-->
+		suffix = None
+		
+		if (12 > game.hour_num) {
+			suffix = "AM"
+		}
+		
+		else {
+			suffix = "PM"
+		}
+		
+		<!--Output-->
+		output = hour + ":" + minute + " " + suffix
+		
+		return (output)
+	</function>
+
+	<function name="Get_Date" type="string">
+		month = ListItem(game.months, game.month_num)
+		
+		day = ToString(game.day_num)
+		
+		year = ToString(game.year_num)
+		
+		output = month + " " + day + ", " + year
+		
+		return (output)
+	</function>
+	
+	<function name="Get_Month_Days" type="int">
+		month_num = game.month_num
+		
+		days = ListItem(game.month_days, month_num)
+		
+		return (ToInt(days))
+	</function>
+
+	<function name="Update_Time">
+		add_hrs = Update_Time_Attr("minute_num", 0, 60)
+		
+		add_days = Update_Time_Attr("hour_num", add_hrs, 24)
+		
+		
+		days = Get_Month_Days()
+		add_months = Update_Time_Attr("day_num", add_days, days + 1)
+		if (game.day_num = 0) {
+			game.day_num = 1
+		}
+		
+		add_years = Update_Time_Attr("month_num", add_months, 12)
+		
+		Update_Time_Attr("year_num", add_years, game.year_num + add_years + 1)
+	
+	</function>
+	
+	<function name="Update_Time_Attr" parameters="attr, num, limit" type="int">
+		val = GetAttribute(game, attr)
+		
+		val = val + num
+		
+		output = 0
+		
+		if (val >= limit) {
+			output = val / limit
+			
+			set(game, attr, val % limit)
+		}
+		
+		else {
+			set(game, attr, val)
+		}
+		
+		return (output)
+	</function>
+
+	<function name="Decay_Needs">
+		foreach (entity, game.entities) {
+			foreach (key, game.need_stats) {
+				if (HasAttribute(entity, key + "_decay")) {
+					decay = GetAttribute(entity, key + "_decay")
+					
+					if (not decay = 0) {
+						cur = GetAttribute(entity, key + "_cur")
+						
+						cur = cur + decay
+						
+						set(entity, key + "_cur", cur)
+						
+						if (0 >= cur) {
+							death_type = DictionaryItem(game.death_types, key)
+							
+							entity.death_type = death_type
+								
+							list add (game.dead, entity.name)
+						}
+					}
+				}
+			}
+		}
+		
+		do(game, "destroy_dead")
+	</function>
+
+	<function name="Midnight_Update">
+		if (game.hour_num = 0 and game.minute_num = 0) {
+			Add_Locs_Inventory()
+		}
+	</function>
+</library>

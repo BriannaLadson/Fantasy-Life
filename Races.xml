@@ -1,0 +1,497 @@
+<library>
+	<object name="Dwarf">
+		<inherit name="Creature_Type" />
+		
+		<alias>Dwarf</alias>
+		
+		<weight type="int">104</weight>
+		
+		<body_type type="object">Humanoid</body_type>
+		
+		<faction_prefixes type="stringlist">
+			<value>Mountainous</value>
+			<value>Hilly</value>
+			<value>Highland</value>
+			<value>Alpine</value>
+			<value>Rocky</value>
+			<value>Stony</value>
+			<value>Craggy</value>
+			<value>Rough</value>
+			<value>Bouldered</value>
+			<value>Flinty</value>
+			<value>Hard</value>
+			<value>Inflexible</value>
+			<value>Pebbly</value>
+			<value>Petrified</value>
+			<value>Rockbound</value>
+			<value>Solid</value>
+			<value>Stonelike</value>
+			<value>Alcoholic</value>
+			<value>Intoxicating</value>
+			<value>Fermented</value>
+			<value>Brewed</value>
+			<value>Distilled</value>
+			<value>Inebriating</value>
+			<value>Sprituous</value>
+			<value>Vinous</value>
+			<value>Drunk</value>
+			<value>Practical</value>
+			<value>Realistic</value>
+			<value>Useful</value>
+			<value>Constructive</value>
+			<value>Efficient</value>
+			<value>Functional</value>
+			<value>Pragmatic</value>
+			<value>Industrious</value>
+			<value>Hardworking</value>
+			<value>Conscientious</value>
+			<value>Diligent</value>
+			<value>Energetic</value>
+			<value>Productive</value>
+			<value>Active</value>
+			<value>Busy</value>
+			<value>Dynamic</value>
+			<value>Eager</value>
+			<value>Intent</value>
+			<value>Jumping</value>
+			<value>Laborious</value>
+			<value>Perky</value>
+			<value>Persevering</value>
+			<value>Persistent</value>
+			<value>Purposeful</value>
+			<value>Spirited</value>
+			<value>Steady</value>
+			<value>Tireless</value>
+			<value>Zealous</value>
+		</faction_prefixes>
+		
+		<name_prefixes type="stringlist">
+			<value>Mount</value>
+			<value>Hil</value>
+			<value>Hahy</value>
+			<value>Al</value>
+			<value>Rok</value>
+			<value>Ston</value>
+			<value>Stoh</value>
+			<value>Krag</value>
+			<value>Ru</value>
+			<value>Bowl</value>
+			<value>Bohl</value>
+			<value>Flin</value>
+			<value>Ha</value>
+			<value>Inflek</value>
+			<value>Peb</value>
+			<value>Petruh</value>
+			<value>Roc</value>
+			<value>Ston</value>
+			<value>Sal</value>
+			<value>Alkeh</value>
+			<value>Intakse</value>
+			<value>Ferm</value>
+			<value>Br</value>
+			<value>Dest</value>
+			<value>Ineb</value>
+		</name_prefixes>
+		
+		<name_suffixes type="stringlist">
+			<value>lee</value>
+			<value>suhbuhl</value>
+			<value>tee</value>
+			<value>nuhs</value>
+			<value>ee</value>
+			<value>luhnd</value>
+			<value>pahyn</value>
+			<value>pin</value>
+			<value>ey</value>
+			<value>nee</value>
+			<value>hf</value>
+			<value>der</value>
+			<value>hrd</value>
+			<value>fahyd</value>
+			<value>lik</value>
+			<value>led</value>
+			<value>olic</value>
+			<value>kading</value>
+			<value>ent</value>
+			<value>oo</value>
+			<value>ild</value>
+			<value>reat</value>
+		</name_suffixes>
+	</object>
+	
+	<object name="Elf">
+		<inherit name="Creature_Type" />
+		
+		<alias>Elf</alias>
+		
+		<weight type="int">139</weight>
+		
+		<body_type type="object">Humanoid</body_type>
+		
+		<faction_prefixes type="stringlist">
+			<value>Immortal</value>
+			<value>Endless</value>
+			<value>Enduring</value>
+			<value>Eternal</value>
+			<value>Everlasting</value>
+			<value>Indestructible</value>
+			<value>Timeless</value>
+			<value>Constant</value>
+			<value>Evergreen</value>
+			<value>Perennial</value>
+			<value>Permanent</value>
+			<value>Abiding</value>
+			<value>Ceaseless</value>
+			<value>Deathless</value>
+			<value>Incorruptible</value>
+			<value>Indissoluble</value>
+			<value>Interminable</value>
+			<value>Lasting</value>
+			<value>Perdurable</value>
+			<value>Perpetual</value>
+			<value>Phoenix</value>
+			<value>Undying</value>
+			<value>Unfading</value>
+			<value>Changeling</value>
+			<value>Surrogate</value>
+			<value>Alternate</value>
+			<value>Auxiliary</value>
+			<value>Effeminate</value>
+			<value>Feminine</value>
+			<value>Enchanted</value>
+			<value>Charmed</value>
+			<value>Magical</value>
+			<value>Bewitched</value>
+			<value>Ensorcelled</value>
+			<value>Magic</value>
+			<value>Forest</value>
+			<value>Jungle</value>
+			<value>Thicket</value>
+			<value>Timber</value>
+			<value>Wood</value>
+			<value>Woodland</value>
+			<value>Backwoods</value>
+			<value>Grove</value>
+			<value>Timberland</value>
+			<value>Woods</value>
+			<value>Garden</value>
+			<value>Oasis</value>
+			<value>Beautiful</value>
+			<value>Attractive</value>
+			<value>Alluring</value>
+			<value>Appealing</value>
+			<value>Charming</value>
+			<value>Dazzling</value>
+			<value>Delicate</value>
+			<value>Delightful</value>
+			<value>Elegant</value>
+			<value>Fascinating</value>
+			<value>Fine</value>
+			<value>Gorgeous</value>
+			<value>Graceful</value>
+			<value>Grand</value>
+			<value>Handsome</value>
+			<value>Lovely</value>
+			<value>Magnificent</value>
+			<value>Marvelous</value>
+			<value>Splendid</value>
+			<value>Stunning</value>
+			<value>Superb</value>
+			<value>Wonderful</value>
+			<value>Admirable</value>
+			<value>Angelic</value>
+			<value>Bewitching</value>
+			<value>Classy</value>
+			<value>Divine</value>
+			<value>Enticing</value>
+			<value>Excellent</value>
+			<value>Fair</value>
+			<value>Radiant</value>
+			<value>Pointy</value>
+			<value>Acute</value>
+			<value>Keen</value>
+			<value>Sharp</value>
+			<value>Proud</value>
+		</faction_prefixes>
+		
+		<name_prefixes type="stringlist">
+			<value>Ihma</value>
+			<value>End</value>
+			<value>Endoo</value>
+			<value>Endyo</value>
+			<value>Ihtu</value>
+			<value>Everla</value>
+			<value>Indistruh</value>
+			<value>Tahy</value>
+			<value>Kons</value>
+			<value>Puhren</value>
+			<value>Purmuh</value>
+		</name_prefixes>
+		
+		<name_suffixes type="stringlist">
+			<value>wrtl</value>
+			<value>lis</value>
+			<value>ring</value>
+			<value>oring</value>
+			<value>rnl</value>
+			<value>hsting</value>
+			<value>ktuhbhul</value>
+			<value>mlis</value>
+			<value>tuhnt</value>
+			<value>eeuhl</value>
+			<value>nuhnt</value>
+		</name_suffixes>
+	</object>
+	
+	<object name="Goblin">
+		<inherit name="Creature_Type" />
+		
+		<alias>Goblin</alias>
+		
+		<weight type="int">78</weight>
+		
+		<body_type type="object">Humanoid</body_type>
+		
+		<faction_prefixes type="stringlist">
+			<value>Mischievous</value>
+			<value>Devilish</value>
+			<value>Wicked</value>
+			<value>Impish</value>
+			<value>Malicious</value>
+			<value>Naughty</value>
+			<value>Rude</value>
+			<value>Sly</value>
+			<value>Bad</value>
+			<value>Bothersome</value>
+			<value>Damaging</value>
+			<value>Dangerous</value>
+			<value>Deleterious</value>
+			<value>Destructive</value>
+			<value>Detrimental</value>
+			<value>Evil</value>
+			<value>Exasperating</value>
+			<value>Frolicsome</value>
+			<value>Harmful</value>
+			<value>Hazardous</value>
+			<value>Hurtful</value>
+			<value>Ill</value>
+			<value>Injurious</value>
+			<value>Insidious</value>
+			<value>Irksome</value>
+			<value>Malignant</value>
+			<value>Misbehaving</value>
+			<value>Nocuous</value>
+			<value>Perlious</value>
+			<value>Pernicious</value>
+			<value>Precarious</value>
+			<value>Puckish</value>
+			<value>Rascal</value>
+			<value>Rascally</value>
+			<value>Risky</value>
+			<value>Sinful</value>
+		</faction_prefixes>
+		
+		<name_prefixes type="stringlist">
+			<value>Mischu</value>
+			<value>Devuh</value>
+			<value>Devl</value>
+			<value>Wik</value>
+			<value>Muhli</value>
+			<value>Naw</value>
+			<value>Ro</value>
+			<value>Sla</value>
+			<value>Bothe</value>
+			<value>Dami</value>
+		</name_prefixes>
+		
+		<name_suffixes type="stringlist">
+			<value>hvuhs</value>
+			<value>lish</value>
+			<value>ish</value>
+			<value>id</value>
+			<value>shuhs</value>
+			<value>tee</value>
+			<value>od</value>
+			<value>hy</value>
+			<value>rsuhm</value>
+			<value>jing</value>
+		</name_suffixes>
+	</object>
+	
+	<object name="Human">
+		<inherit name="Creature_Type" />
+		
+		<alias>Human</alias>
+		
+		<weight type="int">185</weight>
+		
+		<body_type type="object">Humanoid</body_type>
+		
+		<faction_prefixes type="stringlist">
+			<value>Great</value>
+			<value>Excellent</value>
+			<value>Famous</value>
+			<value>Fine</value>
+			<value>Glorious</value>
+			<value>Heroic</value>
+			<value>Impressive</value>
+			<value>Major</value>
+			<value>Outstanding</value>
+			<value>Remarkable</value>
+			<value>Talented</value>
+			<value>Capital</value>
+			<value>Chief</value>
+			<value>Leading</value>
+			<value>Main</value>
+			<value>Noble</value>
+			<value>Notable</value>
+			<value>Primary</value>
+			<value>Principal</value>
+			<value>Royal</value>
+			<value>Superior</value>
+			<value>Superlative</value>
+			<value>Commanding</value>
+			<value>Dignified</value>
+			<value>Distinguished</value>
+			<value>Eminent</value>
+			<value>Exalted</value>
+			<value>Famed</value>
+			<value>Honorable</value>
+			<value>Idealistic</value>
+			<value>Illustrious</value>
+			<value>Lofty</value>
+			<value>Magnanimous</value>
+			<value>Noted</value>
+			<value>Noteworthy</value>
+			<value>Paramount</value>
+			<value>Prominent</value>
+			<value>Puissant</value>
+			<value>Regal</value>
+			<value>Renowned</value>
+			<value>Stately</value>
+			<value>Sublime</value>
+		</faction_prefixes>
+		
+		<name_prefixes type="stringlist">
+			<value>Gr</value>
+			<value>Ekse</value>
+			<value>Fam</value>
+			<value>Fi</value>
+			<value>Glor</value>
+			<value>Her</value>
+			<value>Empr</value>
+			<value>Impr</value>
+			<value>Maj</value>
+			<value>Remar</value>
+			<value>Tale</value>
+			<value>Kap</value>
+		</name_prefixes>
+		
+		<name_suffixes type="stringlist">
+			<value>at</value>
+			<value>lent</value>
+			<value>es</value>
+			<value>in</value>
+			<value>eas</value>
+			<value>oik</value>
+			<value>esiv</value>
+			<value>er</value>
+			<value>kebel</value>
+			<value>nted</value>
+			<value>edl</value>
+		</name_suffixes>
+	</object>
+	
+	<object name="Orc">
+		<inherit name="Creature_Type" />
+		
+		<alias>Orc</alias>
+		
+		<weight type="int">231</weight>
+		
+		<body_type type="object">Humanoid</body_type>
+		
+		<faction_prefixes type="stringlist">
+			<value>Chaotic</value>
+			<value>Anarchic</value>
+			<value>Disorganized</value>
+			<value>Lawless</value>
+			<value>Tumultuous</value>
+			<value>Turbulent</value>
+			<value>Deranged</value>
+			<value>Disordered</value>
+			<value>Purposeless</value>
+			<value>Rampageous</value>
+			<value>Riotous</value>
+			<value>Turbid</value>
+			<value>Uncontrolled</value>
+			<value>Swine</value>
+			<value>Pig</value>
+			<value>Hog</value>
+			<value>Boar</value>
+			<value>Carnivorous</value>
+			<value>Predatory</value>
+			<value>Sallow</value>
+			<value>Gray</value>
+			<value>Red</value>
+			<value>Green</value>
+			<value>Goons</value>
+			<value>Ruffian</value>
+			<value>Hooligan</value>
+			<value>Bruiser</value>
+			<value>Gorilla</value>
+			<value>Warrior</value>
+			<value>Champion</value>
+			<value>Soldier</value>
+			<value>Fighter</value>
+			<value>Combatant</value>
+			<value>Beserk</value>
+			<value>Aggressive</value>
+			<value>Demented</value>
+			<value>Maniacal</value>
+			<value>Belligerent</value>
+			<value>Hostile</value>
+			<value>Combative</value>
+			<value>Contentious</value>
+			<value>Destructive</value>
+			<value>Intrusive</value>
+			<value>Threatening</value>
+			<value>Assailing</value>
+			<value>Attacking</value>
+			<value>Barbaric</value>
+			<value>Bellicose</value>
+			<value>Disruptive</value>
+			<value>Disturbing</value>
+			<value>Martial</value>
+			<value>Militant</value>
+			<value>Quarrelsome</value>
+		</faction_prefixes>
+		
+		<name_prefixes type="stringlist">
+			<value>Kaa</value>
+			<value>Anar</value>
+			<value>Desorg</value>
+			<value>Lol</value>
+			<value>Lal</value>
+			<value>Toomel</value>
+			<value>Temelc</value>
+			<value>Terby</value>
+			<value>Dera</value>
+			<value>Desor</value>
+			<value>Perpe</value>
+		</name_prefixes>
+		
+		<name_suffixes type="stringlist">
+			<value>dik</value>
+			<value>kik</value>
+			<value>enizd</value>
+			<value>es</value>
+			<value>chewes</value>
+			<value>haewes</value>
+			<value>elent</value>
+			<value>njd</value>
+			<value>derd</value>
+			<value>sles</value>
+		</name_suffixes>
+	</object>
+</library>

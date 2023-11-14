@@ -1,0 +1,114 @@
+<library>
+	<function name="Get_Success" parameters="lvl" type="boolean">
+		if (0 >= lvl) {
+			return (false)
+		}
+		else if (lvl >= 100) {
+			return (true)
+		}
+		else {
+			chance = GetRandomInt(1, 100)
+			
+			if (chance > lvl) {
+				return (false)
+			}
+			
+			else {
+				return (true)
+			}
+		}
+	</function>
+	
+	<function name="Cut_Tree_Action" parameters="entity, axe" type="boolean">
+		parent = entity.parent
+		
+		success = true
+		
+		<!--Get Hand Stat Lvl-->
+			bps = Get_All_BPs(entity)
+		
+			hand = Get_Dict_By_Key_Val(bps, "equip_item", axe)
+		
+			hand_stat = DictionaryItem(hand, "hand_stat")
+		
+			hand_stat_lvl = GetAttribute(entity, hand_stat + "_lvl")
+		
+		<!--parent.fertility-->
+		if (RandomChance(parent.fertility)) {
+			<!--Get Wood Cutting Lvl-->
+			wood_cutting_lvl = GetAttribute(entity, "wood_cutting_lvl")
+			
+			<!--Avg.-->
+			avg = (hand_stat_lvl + wood_cutting_lvl) / 2
+			
+			<!--Success-->
+			success = Get_Success(avg)
+		}
+		
+		else {
+			success = false
+		}
+		
+		
+		if (success) {
+			do(Wood, "generate", QuickParams("parent", entity))
+		}
+		
+		<!--Axe Degradation-->
+		do(axe, "mod_durability", QuickParams("mod", -1))
+		
+		<!--XP-->
+		Give_XP(entity, "wood_cutting")
+		Give_XP(entity, hand_stat)
+		
+		<!--Return-->
+		return  (success)
+	</function>
+	
+	<function name="Mine_Action" parameters="entity, pickaxe" type="boolean">
+		parent = entity.parent
+		
+		success = true
+		
+		<!--Get Hand Stat Lvl-->
+			bps = Get_All_BPs(entity)
+		
+			hand = Get_Dict_By_Key_Val(bps, "equip_item", pickaxe)
+		
+			hand_stat = DictionaryItem(hand, "hand_stat")
+		
+			hand_stat_lvl = GetAttribute(entity, hand_stat + "_lvl")
+			
+		<!--parent.mineral-->
+		if (RandomChance(parent.mineral)) {
+			<!--Get Mining Lvl-->
+			mining_lvl = GetAttribute(entity, "mining_lvl")
+			
+			<!--Avg.-->
+			avg = (hand_stat_lvl + mining_lvl) / 2
+			
+			<!--Success-->
+			success = Get_Success(avg)
+		}
+		
+		else {
+			success = false
+		}
+		
+		if (success) {
+			mineral = Get_Obj_By_Weighted_Chance(game.minerals, "mineral_chance")
+			
+			do(mineral, "generate", QuickParams("parent", entity))
+		}
+		
+		<!--Pickaxe Degradation-->
+		do(pickaxe, "mod_durability", QuickParams("mod", -1))
+		
+		<!--XP-->
+		Give_XP(entity, "mining")
+		Give_XP(entity, hand_stat)
+		
+		<!--Return-->
+		return  (success)
+	</function>
+</library>

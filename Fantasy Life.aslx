@@ -1,0 +1,897 @@
+<!--Saved by Quest 5.8.6836.13983-->
+<asl version="580">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+  <include ref="Types.xml" />
+  <include ref="Map.xml" />
+  <include ref="WorldGeneration.xml" />
+  <include ref="Races.xml" />
+  <include ref="CharacterCreation.xml" />
+  <include ref="HelpFunctions.xml" />
+  <include ref="BodyTypes.xml" />
+  <include ref="Roles.xml" />
+  <include ref="Weapons.xml" />
+  <include ref="Materials.xml" />
+  <include ref="Traits.xml" />
+  <include ref="Actions.xml" />
+  <include ref="Factions.xml" />
+  <include ref="Calendar.xml" />
+  <include ref="Minerals.xml" />
+  <include ref="Workshops.xml" />
+  <game name="Fantasy Life">
+    <gameid>3b68be85-9773-4f8d-b339-afe44df4292f</gameid>
+    <version>11.14.23</version>
+    <firstpublished>2023</firstpublished>
+    <showtitle type="boolean">false</showtitle>
+    <category>RPG</category>
+    <description><![CDATA[Create a life for yourself in a randomly generated fantasy world!<br/><br/>[Features]<br/>*Dynamic Economy: Each item's base value increases/decreases based on location and need. Item prices are updated daily at 12AM.<br/><br/>*Leveling Systems: The XP system allows the player to level up their skills by doing. The Point system allows the player to assign skill points to as needed.<br/><br/>*Races: Play as one of the 5 classic fantasy races.<br/><br/>*Roles: Choose a role that best fits your desired playstyle.<br/><br/>*Travel: Discover locations while traveling across the game world.<br/><br/>*World Generation: After entering some parameters, a new game world is generated for you to delve into.<br/><br/>[Races]<br/>*Dwarf<br/>*Elf<br/>*Goblin<br/>*Human<br/>*Orc<br/><br/>[Roles]<br/>*Blacksmith<br/>*Carpenter<br/>*Smelter<br/>*Miner<br/>*Wood Cutter]]></description>
+    <autodescription type="boolean">false</autodescription>
+    <feature_annotations />
+    <directions type="stringdictionary">
+      <item>
+        <key>north</key>
+        <value>0;-1</value>
+      </item>
+      <item>
+        <key>northwest</key>
+        <value>-1;-1</value>
+      </item>
+      <item>
+        <key>northeast</key>
+        <value>1;-1</value>
+      </item>
+      <item>
+        <key>south</key>
+        <value>0;1</value>
+      </item>
+      <item>
+        <key>southwest</key>
+        <value>-1;1</value>
+      </item>
+      <item>
+        <key>southeast</key>
+        <value>1;1</value>
+      </item>
+      <item>
+        <key>west</key>
+        <value>-1;0</value>
+      </item>
+      <item>
+        <key>east</key>
+        <value>1;0</value>
+      </item>
+    </directions>
+    <region_stats type="stringdictionary">
+      <item>
+        <key>fertility</key>
+        <value>Fertility</value>
+      </item>
+      <item>
+        <key>mineral</key>
+        <value>Mineral</value>
+      </item>
+    </region_stats>
+    <status_pane_menus type="stringlist">
+      <value>Actions</value>
+      <value>Character_Sheet</value>
+      <value>Health</value>
+      <value>Stats</value>
+    </status_pane_menus>
+    <attr name="status_pane_idx" type="int">0</attr>
+    <customstatuspane />
+    <stats type="stringdictionary">
+      <item>
+        <key>blacksmithing</key>
+        <value>Blacksmithing</value>
+      </item>
+      <item>
+        <key>carpentry</key>
+        <value>Carpentry</value>
+      </item>
+      <item>
+        <key>left_hand</key>
+        <value>Left Handedness</value>
+      </item>
+      <item>
+        <key>mining</key>
+        <value>Mining</value>
+      </item>
+      <item>
+        <key>smelting</key>
+        <value>Smelting</value>
+      </item>
+      <item>
+        <key>right_hand</key>
+        <value>Right Handedness</value>
+      </item>
+      <item>
+        <key>wood_cutting</key>
+        <value>Wood Cutting</value>
+      </item>
+    </stats>
+    <levelling />
+    <faction_suffixes type="stringlist">
+      <value>Faction</value>
+      <value>Clan</value>
+      <value>Gang</value>
+      <value>Minority</value>
+      <value>Party</value>
+      <value>Sect</value>
+      <value>Side</value>
+      <value>Wing</value>
+      <value>Band</value>
+      <value>Camp</value>
+      <value>Circle</value>
+      <value>Clique</value>
+      <value>Club</value>
+      <value>Coalition</value>
+      <value>Conclave</value>
+      <value>Confederacy</value>
+      <value>Coterie</value>
+      <value>Crew</value>
+      <value>Crowd</value>
+      <value>Division</value>
+      <value>Guild</value>
+      <value>Intrigue</value>
+      <value>Lobby</value>
+      <value>Mob</value>
+      <value>Network</value>
+      <value>Offshoot</value>
+      <value>Outfit</value>
+      <value>Partnership</value>
+      <value>Ring</value>
+      <value>Group</value>
+      <value>Association</value>
+      <value>Band</value>
+      <value>Body</value>
+      <value>Class</value>
+      <value>Company</value>
+      <value>Organization</value>
+      <value>Party</value>
+      <value>Society</value>
+      <value>Troop</value>
+      <value>Assembly</value>
+      <value>Cartel</value>
+      <value>Chain</value>
+      <value>Collection</value>
+      <value>Conglomerate</value>
+      <value>Congregation</value>
+      <value>Formation</value>
+      <value>Gathering</value>
+      <value>League</value>
+      <value>Lot</value>
+      <value>Pack</value>
+      <value>Platoon</value>
+      <value>Suite</value>
+      <value>Syndicate</value>
+    </faction_suffixes>
+    <vowels type="stringlist">
+      <value>a</value>
+      <value>e</value>
+      <value>i</value>
+      <value>o</value>
+      <value>u</value>
+      <value>y</value>
+    </vowels>
+    <attr name="minute_num" type="int">0</attr>
+    <attr name="hour_num" type="int">7</attr>
+    <attr name="day_num" type="int">1</attr>
+    <attr name="month_num" type="int">0</attr>
+    <attr name="year_num" type="int">1</attr>
+    <months type="stringlist">
+      <value>Janyewere</value>
+      <value>Febyewere</value>
+      <value>Marche</value>
+      <value>Aprel</value>
+      <value>Maie</value>
+      <value>Joon</value>
+      <value>Jeli</value>
+      <value>Ogest</value>
+      <value>Septembere</value>
+      <value>Aktober</value>
+      <value>Novembere</value>
+      <value>Desember</value>
+    </months>
+    <month_days type="list">
+      <value type="string">31</value>
+      <value type="string">28</value>
+      <value type="string">31</value>
+      <value type="string">30</value>
+      <value type="string">31</value>
+      <value type="string">30</value>
+      <value type="string">31</value>
+      <value type="string">31</value>
+      <value type="string">30</value>
+      <value type="string">31</value>
+      <value type="string">30</value>
+      <value type="string">31</value>
+    </month_days>
+    <debug type="boolean">false</debug>
+    <start type="script">
+      player.parent = World_Settings
+    </start>
+    <attr name="mod_status_pane_idx" type="script"><![CDATA[
+      this.status_pane_idx = this.status_pane_idx + mod
+      if (this.status_pane_idx > ListCount(this.status_pane_menus) - 1) {
+        this.status_pane_idx = 0
+      }
+      else if (0 > this.status_pane_idx) {
+        this.status_pane_idx = ListCount(this.status_pane_menus) - 1
+      }
+      Update_Custom_Status_Pane
+    ]]></attr>
+    <animals type="objectlist"></animals>
+    <races type="objectlist">Dwarf; Elf; Goblin; Human; Orc</races>
+    <roles type="objectlist">Blacksmith; Carpenter; Miner; Peasant; Smelter; Wood_Cutter</roles>
+    <materials type="objectlist">Bone; Wood; Stone; Iron</materials>
+    <attr name="hand_traits" type="objectlist">Ambidextrous; Left_Handed; Right_Handed</attr>
+    <factions type="objectlist"></factions>
+    <locations type="objectlist"></locations>
+    <attr name="item_types" type="objectlist">Material; Mineral; Weapon; Workshop</attr>
+    <minerals type="objectlist">Coal; Stone; Iron_Ore</minerals>
+  </game>
+  <object name="room">
+    <inherit name="editor_room" />
+    <isroom />
+    <attr name="implementation_notes"><![CDATA[[Release Goals (2)]<br/>*Role(s)<br/><br/><br/>*Feature(s)<br/>-Needs: Hunger, Thirst, Energy<br/>-Death: Starvation, Dehydration, Alcohol Poisoning<br/>-Player passes out when their energy is too low<br/><br/><br/>[Tasks]<br/>*Add Race Names (Dwarf - Sprituous)<br/>*Add Race Names (Elf - Abiding)<br/>*Add Race Names (Goblin - Dangerous)<br/>*Add Race Names (Human - Chief)<br/>*Add Race Names (Orc - Rampageous)<br/><br/><br/>*Take item durability into account when trading<br/><br/><br/>[Features]<br/>*Aging<br/>*Pets<br/>*Banking<br/>*Taxation<br/>*Disease System<br/>*Holidays<br/>*Weather<br/>*Events (Baby Shower, Funeral)<br/>*Traits<br/>-Beliefs: Can be changed through conversation and experiences<br/>-Personality<br/>*Throwing (Stat)<br/>*Religion<br/>*Blessings, Curses<br/>*Tournaments<br/>*Lunar Cycle<br/>*Werecreatures, Vampires, Mummies<br/>*Blood<br/>*Traps<br/>*Ice Skating<br/>*Fairy (Race)<br/>*Taxes<br/>*Uniforms<br/><br/>[Factions]<br/>*Civilization<br/>*Guild<br/>*Group<br/><br/>[Materials]<br/>*Bone<br/>*Wood<br/>*Stone<br/>*Metal<br/><br/>[Roles]<br/>*Wood Cutter: Cuts down trees for wood<br/>*Carpenter: Makes items out of wood<br/>*Miner: Mines for ore<br/>*Smelter: Smelts ore into metal bars<br/>*Metalsmith: Smelts metal bars into metal items<br/><br/>*Hunter: Kills  terrestial animals<br/>*Fisher: Catches aquatic animals<br/>*Butcher: Butcher's animal corpses<br/>*Cook: Cooks food<br/>*Baker<br/>*Forager: Forage for fruits, vegetables, and plants<br/>*Planter: Plants fruits, vegetables, and plants<br/>*Brewer: Brews fruits, and vegetables into alcohol<br/>*Water Carriers: <br/><br/>*Monster Slayer: Travels the world killing monsters for profit (!)<br/><br/>*Archer<br/>*Crossbowman<br/>*Axeman<br/><br/>*Banker<br/>*Caravaner<br/>*Trader<br/>*Treasure Hunter<br/>*Assassin<br/>*Bounty Hunter<br/>*Thief<br/>*Beast Master<br/>*Necromancer<br/>*Alchemist<br/>*Doctor<br/>*Courier<br/>*Diplomat<br/>*Pirate<br/>*Mercenary<br/>*Fence<br/><br/>[Traits]<br/>*Anti-Slavery<br/>*Pro-Slavery<br/>*Alcoholic<br/>*Cannabil<br/>*Changeling: Will swap their child our for another races child]]></attr>
+    <object name="player">
+      <inherit name="editor_object" />
+      <inherit name="editor_player" />
+      <inherit name="Sentient" />
+      <creature_type_num type="dictionary" />
+      <creature_type_ratio type="dictionary" />
+      <bp_attrs type="stringlist" />
+    </object>
+    <object name="Custom_Status_Character_Sheet">
+      <inherit name="editor_object" />
+      <attr name="menu_name">Character Sheet</attr>
+      <attr name="update_status" type="script"><![CDATA[
+        // Header
+        html = "<table width=\"100%\">"
+        html = html + Get_Menu_Header_HTML(html, this.menu_name)
+        html = html + "</table>"
+        html = html + "<hr>"
+        // Race
+        html = html + "<table width=\"100%\">"
+        foreach (key, player.creature_type_ratio) {
+          race = GetObject(key)
+          ratio = DictionaryItem(player.creature_type_ratio, key)
+          html = html + "<tr>"
+          html = html + "<td>"
+          html = html + race.alias + ": " + ToString(ratio) + "%"
+          html = html + "</td>"
+          html = html + "</tr>"
+        }
+        html = html + "</table>"
+        JS.setCustomStatus (html)
+      ]]></attr>
+    </object>
+    <object name="Custom_Status_Health">
+      <inherit name="editor_object" />
+      <attr name="menu_name">Health</attr>
+      <attr name="update_status" type="script"><![CDATA[
+        // Header
+        html = "<table width=\"100%\">"
+        html = html + Get_Menu_Header_HTML(html, this.menu_name)
+        html = html + "</table>"
+        html = html + "<hr>"
+        // Body Parts
+        html = html + "<table width=\"100%\">"
+        foreach (bp_attr, player.bp_attrs) {
+          bp = GetAttribute(player, bp_attr)
+          alias = DictionaryItem(bp, "alias")
+          health_cur = DictionaryItem(bp, "health_cur")
+          health_max = DictionaryItem(bp, "health_max")
+          html = html + "<tr>"
+          html = html + "<td>"
+          html = html + alias + ": " + ToString(health_cur) + " / " + ToString(health_max)
+          html = html + "</td>"
+          html = html + "</tr>"
+        }
+        html = html + "</table>"
+        JS.setCustomStatus (html)
+      ]]></attr>
+    </object>
+    <object name="Custom_Status_Stats">
+      <inherit name="editor_object" />
+      <attr name="menu_name">Stats</attr>
+      <attr name="update_status" type="script"><![CDATA[
+        // Header
+        html = "<table width=\"100%\">"
+        html = html + Get_Menu_Header_HTML(html, this.menu_name)
+        html = html + "</table>"
+        html = html + "<hr>"
+        // Skills
+        html = html + "<table width=\"100%\">"
+        foreach (key, game.stats) {
+          skill_name = DictionaryItem(game.stats, key)
+          skill_lvl = GetAttribute(player, key + "_lvl")
+          html = html + "<tr>"
+          html = html + "<td>"
+          html = html + skill_name + ": " + ToString(skill_lvl)
+          html = html + "</td>"
+          if (not game.levelling) {
+            html = html + "<td>"
+            html = html + "<button onclick=\"ASLEvent('Process_Inc_Stat', "
+            html = html + "'" + key + "')\">"
+            html = html + "+"
+            html = html + "</td>"
+            html = html + "<td>"
+            html = html + "<button onclick=\"ASLEvent('Process_Dec_Stat', "
+            html = html + "'" + key + "')\">"
+            html = html + "-"
+            html = html + "</td>"
+          }
+          html = html + "</tr>"
+          if (game.levelling) {
+            curxp = GetAttribute(player, key + "_curxp")
+            maxxp = GetAttribute(player, key + "_maxxp")
+            padding = (Int_To_Double(curxp) / Int_To_Double(maxxp)) * 100
+            html = html + "<tr>"
+            html = html + "<td colspan=\"2\" style=\"border: thin solid;background:white;text-align:left;\">"
+            html = html + "<span style=\"background-color:black;padding-right:"
+            html = html + ToString(padding) + "%;\">"
+            html = html + "</span>"
+            html = html + "</td>"
+            html = html + "</tr>"
+          }
+        }
+        html = html + "</table>"
+        JS.setCustomStatus (html)
+      ]]></attr>
+    </object>
+    <object name="Custom_Status_Actions">
+      <inherit name="editor_object" />
+      <attr name="menu_name">Actions</attr>
+      <attr name="update_status" type="script"><![CDATA[
+        // Header
+        html = "<table width=\"100%\">"
+        html = html + Get_Menu_Header_HTML(html, this.menu_name)
+        html = html + "</table>"
+        html = html + "<hr>"
+        // Clear Screen
+        html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'ClearScreen_Cmd')\">Clear Screen</button></td></tr>"
+        html = html + "<hr>"
+        // Actions
+        parent = player.parent
+        html = html + "<table width=\"100%\">"
+        if (parent.prototype = Region) {
+          // Prospect
+          html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'Prospect_Cmd')\">Prospect</button></td></tr>"
+        }
+        else if (parent.prototype = Location) {
+          // Census
+          html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'Census_Cmd')\">Census</button></td></tr>"
+          // Market
+          html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'Market_Cmd')\">Market</button></td></tr>"
+        }
+        html = html + "</table>"
+        JS.setCustomStatus (html)
+      ]]></attr>
+    </object>
+  </object>
+  <command name="Prospect_Cmd">
+    <pattern>prospect;Prospect</pattern>
+    <script>
+      parent = player.parent
+      if (not parent.prototype = Region) {
+        msg ("You can only prospect while in a Region!")
+      }
+      else {
+        foreach (key, game.region_stats) {
+          val = DictionaryItem(game.region_stats, key)
+          stat = GetAttribute(parent, key)
+          msg (val + ": " + ToString(stat))
+        }
+      }
+    </script>
+  </command>
+  <turnscript name="TakeTurn_TS">
+    <script>
+      game.minute_num = game.minute_num + 1
+      Update_Time
+      Midnight_Update
+      Update_Status
+      Update_Custom_Status_Pane
+    </script>
+  </turnscript>
+  <command name="Equip_Cmd">
+    <pattern>equip #object#;Equip #object#</pattern>
+    <script>
+      if (not ListContains(object.inventoryverbs, "Equip")) {
+        if (object.is_equipped) {
+          msg ("You already have that equipped!")
+        }
+        else {
+          msg ("You can't equip that!")
+        }
+      }
+      else {
+        bps = Get_All_BPs(player)
+        can_equip_bps = Get_Dicts_By_Key_Val(bps, "can_equip", True)
+        if (ListCount(can_equip_bps) = 0) {
+          msg ("You don't have any body parts that can equip that!")
+        }
+        else {
+          empty_bps = Get_Dicts_By_Key_Val(can_equip_bps, "equip_item", None)
+          if (ListCount(empty_bps) = 0) {
+            msg ("All of your body parts that can equip that are full!")
+          }
+          else {
+            player.equip_target = object
+            bp_aliases = Get_Dicts_Val(empty_bps, "alias")
+            ShowMenu ("What body part do you want to equip the " + object.alias + " with?", bp_aliases, true) {
+              bps = Get_All_BPs(player)
+              bp = Get_Dict_By_Key_Val(bps, "alias", result)
+              do (player, "equip_item", QuickParams("bp", bp, "item", player.equip_target))
+              msg ("You equip the " + player.equip_target.alias + " with your " + result + "!")
+            }
+          }
+        }
+      }
+    </script>
+  </command>
+  <command name="Unequip_Cmd">
+    <pattern>unequip #object#;Unequip #object#</pattern>
+    <script>
+      if (not ListContains(object.inventoryverbs, "Unequip")) {
+        msg ("You can't unequip that!")
+      }
+      else {
+        bps = Get_All_BPs(player)
+        bp = Get_Dict_By_Key_Val(bps, "equip_item", object)
+        bp_alias = DictionaryItem(bp, "alias")
+        do (player, "unequip_item", QuickParams("bp", bp, "item", object))
+        msg ("You unequip the " + object.alias + " from your " + bp_alias + ".")
+      }
+    </script>
+  </command>
+  <command name="CutWood_Cmd">
+    <pattern>cut wood #object#;Cut Wood #object#</pattern>
+    <script>
+      if (not ListContains(object.inventoryverbs, "Cut Wood")) {
+        msg ("You can't cut wood with that!")
+      }
+      else {
+        parent = player.parent
+        if (not parent.prototype = Region) {
+          msg ("You can only cut wood while in a Region!")
+        }
+        else {
+          success = Cut_Tree_Action (player, object)
+          if (not success) {
+            msg ("You failed to cut down a tree for wood!")
+          }
+          else {
+            msg ("You cut down a tree for wood!")
+          }
+        }
+      }
+    </script>
+  </command>
+  <command name="ClearScreen_Cmd">
+    <pattern>clear screen;Clear Screen</pattern>
+    <script>
+      ClearScreen
+    </script>
+  </command>
+  <command name="Enter_Cmd">
+    <pattern>enter #object#;Enter #object#</pattern>
+    <script>
+      if (not ListContains(object.displayverbs, "Enter")) {
+        msg ("You can't enter that!")
+      }
+      else {
+        do (object, "enter", QuickParams("player", player))
+      }
+    </script>
+  </command>
+  <command name="Census_Cmd">
+    <pattern>census #object#;Census #object#</pattern>
+    <script>
+      parent = player.parent
+      if (not parent.prototype = Location) {
+        msg ("You must be inside of a location to look at its census!")
+      }
+      else {
+        msg ("*Census")
+        foreach (key, parent.roles) {
+          role = GetObject(key)
+          val = DictionaryItem(parent.roles, key)
+          msg ("-" + role.alias + ": " + ToString(val))
+        }
+      }
+    </script>
+  </command>
+  <command name="Wait_Cmd">
+    <pattern>wait #text#;Wait #text#</pattern>
+    <script><![CDATA[
+      if (not IsInt(text)) {
+        msg ("You must enter an integer!")
+      }
+      else {
+        turns = ToInt(text)
+        if (0 >= turns) {
+          msg ("You must enter an integer that's greater than 0!")
+        }
+        else {
+          for (i, 1, turns - 1) {
+            do (TakeTurn_TS, "script")
+          }
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="Market_Cmd">
+    <pattern>market #object#;Market#object#</pattern>
+    <script><![CDATA[
+      parent = player.parent
+      if (not parent.prototype = Location) {
+        msg ("You must be inside a Location to access its market!")
+      }
+      else {
+        // Choose Item Category
+        ShowMenu ("Choose a category to buy from.", game.item_types, true) {
+          parent = player.parent
+          items = NewObjectList()
+          foreach (key, parent.inventory) {
+            obj = GetObject(key)
+            if (DoesInherit(obj, result)) {
+              num = DictionaryItem(parent.inventory, obj.name)
+              if (num >= 1) {
+                list add (items, obj)
+              }
+            }
+          }
+          if (ListCount(items) = 0) {
+            msg (parent.alias + " doesn't have any items of this type to sell.")
+          }
+          else {
+            ShowMenu ("Choose an item to buy.", items, true) {
+              obj = GetObject(result)
+              parent = player.parent
+              val = Get_Item_Val(parent, obj)
+              // Does Player have enough gold?
+              if (val > player.gold) {
+                msg ("The " + obj.alias + " is " + ToString(val) + " gold. You don't have enough gold!")
+              }
+              else {
+                player.buy_target = obj
+                player.gold_target = val
+                num = DictionaryItem(parent.inventory, obj.name)
+                // Player is buying 1 of item
+                if (num = 1) {
+                  ShowMenu ("Do you want to buy the " + obj.alias + " for " + ToString(val) + " gold?", Split("Yes;No"), true) {
+                    if (result = "Yes") {
+                      item = player.buy_target
+                      gold = player.gold_target
+                      parent = player.parent
+                      // Output
+                      msg ("You brought the " + item.alias + " for " + ToString(gold) + " gold.")
+                      // Transfer Item
+                      Transfer_Item (parent, player, item)
+                      // Transfer Gold
+                      Transfer_Gold (player, parent, gold)
+                    }
+                  }
+                }
+                else {
+                  gold = player.gold_target
+                  max = player.gold / gold
+                  if (max > num) {
+                    max = num
+                  }
+                  msg ("How many " + obj.alias + " do you want to buy? (Max: " + ToString(max) + ")")
+                  player.max_target = max
+                  get input {
+                    if (not IsInt(result)) {
+                      msg ("You can't buy that amount.")
+                    }
+                    else {
+                      num = ToInt(result)
+                      if (0 >= num or num > max) {
+                        msg ("You can't buy that amount.")
+                      }
+                      else {
+                        player.num_target = num
+                        item = player.buy_target
+                        gold = player.gold_target * num
+                        ShowMenu ("Do you want to buy " + ToString(num) + " " + item.alias + " for " + ToString(gold) + " gold?", Split("Yes;No"), true) {
+                          if (result = "Yes") {
+                            num = player.num_target
+                            item = player.buy_target
+                            gold = player.gold_target * num
+                            parent = player.parent
+                            // Output
+                            msg ("You brought " + ToString(num) + " " + item.alias + " for " + ToString(gold) + " gold.")
+                            // Transfer Item
+                            for (i, 1, num) {
+                              Transfer_Item (parent, player, item)
+                            }
+                            // Transfer_Gold
+                            Transfer_Gold (player, parent, gold)
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="Sell_Cmd">
+    <pattern>sell #object#;Sell #object#</pattern>
+    <script><![CDATA[
+      parent = player.parent
+      if (not ListContains(object.inventoryverbs, "Sell")) {
+        msg ("You can't sell that!")
+      }
+      else {
+        if (not parent.prototype = Location) {
+          msg ("You can only sell this while in a Location!")
+        }
+        else {
+          player.sell_target = object
+          val = Get_Item_Val(parent, object)
+          player.gold_target = val
+          // How many of these items does the Player have?
+          items = Get_Inv_Items_By_Prototype(player, object.prototype)
+          // Player has only 1 of item
+          if (ListCount(items) = 1) {
+            if (val > parent.gold) {
+              val = parent.gold
+            }
+            player.gold_target = val
+            // Prompt
+            ShowMenu ("Do you want to sell the " + object.alias + " to " + parent.alias + " for " + ToString(val) + " gold?", Split("Yes;No"), true) {
+              if (result = "Yes") {
+                item = player.sell_target
+                gold = player.gold_target
+                parent = player.parent
+                // Output
+                msg ("You sell the " + item.alias + " to " + parent.alias + " for " + ToString(gold) + " gold.")
+                // Transfer Item
+                Transfer_Item (player, player.parent, item)
+                // Transfer Gold
+                Transfer_Gold (player.parent, player, gold)
+              }
+            }
+          }
+          else {
+            // How many of this items does the Player want to sell?
+            max = ListCount(items)
+            msg ("How many " + object.alias + " do you want to sell? (Max: " + ToString(max) + ")")
+            get input {
+              if (not IsInt(result)) {
+                msg ("You can't sell that amount!")
+              }
+              else {
+                num = ToInt(result)
+                if (0 >= num or num > max) {
+                  msg ("You can't sell that amount!")
+                }
+                else {
+                  player.gold_target = num * player.gold_target
+                  parent = player.parent
+                  item = player.sell_target
+                  player.num_target = num
+                  if (player.gold_target > parent.gold) {
+                    player.gold_target = parent.gold
+                  }
+                  ShowMenu ("Do you want to sell " + ToString(num) + " " + item.alias + " for " + ToString(player.gold_target) + " gold?", Split("Yes;No"), true) {
+                    if (result = "Yes") {
+                      num = player.num_target
+                      item = player.sell_target
+                      parent = player.parent
+                      gold = player.gold_target
+                      items = Get_Inv_Items_By_Prototype(player, item.prototype)
+                      // Output
+                      msg ("You sold " + ToString(num) + " " + item.alias + " to " + parent.alias + " for " + ToString(gold) + " gold.")
+                      // Transfer Item
+                      for (i, 1, num) {
+                        idx = i - 1
+                        inv_item = ListItem(items, idx)
+                        Transfer_Item (player, parent, inv_item)
+                      }
+                      // Transfer Gold
+                      Transfer_Gold (parent, player, gold)
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="SellAll_Cmd">
+    <pattern>sell all #object#;Sell All #object#</pattern>
+    <script><![CDATA[
+      if (not ListContains(object.inventoryverbs, "Sell")) {
+        msg ("You can't sell that!")
+      }
+      else {
+        parent = player.parent
+        if (not parent.prototype = Location) {
+          msg ("You can only sell this while in a Location!")
+        }
+        else {
+          inventory = GetDirectChildren(player)
+          items = FilterByAttribute(inventory, "prototype", object.prototype)
+          if (ListCount(items) = 1) {
+            do (Sell_Cmd, "script", QuickParams("object", object))
+          }
+          else if (ListCount(items) > 1) {
+            player.sell_target = object
+            num = ListCount(items)
+            // Get object value
+            val = Get_Item_Val(parent, object)
+            total_val = val * num
+            if (total_val > parent.gold) {
+              total_val = parent.gold
+            }
+            player.gold_target = total_val
+            // Prompt
+            ShowMenu ("Do you want to sell " + ToString(num) + " " + object.alias + " to " + parent.alias + " for a total of " + ToString(total_val) + " gold?", Split("Yes;No"), true) {
+              if (result = "Yes") {
+                item = player.sell_target
+                parent = player.parent
+                total_val = player.gold_target
+                // Output
+                msg ("You sold all of the " + item.alias + " to " + parent.alias + " for " + ToString(total_val) + " gold.")
+                // Transfer Item
+                items = Get_Inv_Items_By_Prototype(player, item.prototype)
+                foreach (item, items) {
+                  Transfer_Item (player, parent, item)
+                }
+                // Transfer Gold
+                Transfer_Gold (parent, player, total_val)
+              }
+            }
+          }
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="Mine_Cmd">
+    <pattern>mine #object#;Mine #object#</pattern>
+    <script>
+      if (not ListContains(object.inventoryverbs, "Mine")) {
+        msg ("You can't mine with that!")
+      }
+      else {
+        parent = player.parent
+        if (not parent.prototype = Region) {
+          msg ("You can only mine while in a Region!")
+        }
+        else {
+          success = Mine_Action(player, object)
+          if (not success) {
+            msg ("You failed to mine anything!")
+          }
+          else {
+            msg ("You mined a mineral!")
+          }
+        }
+      }
+    </script>
+  </command>
+  <command name="Craft_Cmd">
+    <pattern>craft #object#;Craft #object#</pattern>
+    <script><![CDATA[
+      if (not ListContains(object.inventoryverbs, "Craft")) {
+        msg ("You can't craft with that!")
+      }
+      else {
+        player.workshop_target = object
+        ShowMenu ("What do you want to craft?", object.products, true) {
+          craft_obj = GetObject(result)
+          valid = true
+          workshop = player.workshop_target
+          foreach (key, craft_obj.reagents) {
+            reagent_obj = GetObject(key)
+            min = DictionaryItem(craft_obj.reagents, key)
+            inv = Get_Inv_Items_By_Prototype(player, reagent_obj)
+            if (min > ListCount(inv)) {
+              valid = false
+              msg ("You need " + ToString(min) + " " + reagent_obj.alias + " to craft that!")
+            }
+          }
+          if (valid) {
+            foreach (key, craft_obj.reagents) {
+              reagent_obj = GetObject(key)
+              min = DictionaryItem(craft_obj.reagents, key)
+              for (i, 1, min) {
+                inv = Get_Inv_Items_By_Prototype(player, reagent_obj)
+                reagent = ListItem(inv, 0)
+                destroy (reagent.name)
+              }
+            }
+            lvl = GetAttribute(player, workshop.stat_attr + "_lvl")
+            success = Get_Success(lvl)
+            if (not success) {
+              msg ("You failed to craft the " + craft_obj.alias + "!")
+            }
+            else {
+              msg ("You craft the " + craft_obj.alias + ".")
+              do (craft_obj, "generate", QuickParams("parent", player))
+            }
+            Give_XP (player, workshop.stat_attr)
+          }
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="Debug_Cmd">
+    <pattern>debug;Debug</pattern>
+    <script>
+      if (not game.debug) {
+        game.debug = true
+        msg ("Debug mode enabled!")
+      }
+      else {
+        game.debug = false
+        msg ("Debug mode disabled!")
+      }
+    </script>
+  </command>
+  <command name="Add_Location_Inventory_Cmd">
+    <pattern>add loc inv</pattern>
+    <script>
+      if (not game.debug) {
+        msg ("You must enable debug mode!")
+      }
+      else {
+        if (not player.parent.prototype = Location) {
+          msg ("You must be in a Location!")
+        }
+        else {
+          do (player.parent, "add_inventory")
+        }
+      }
+    </script>
+  </command>
+  <function name="Get_Menu_Header_HTML" parameters="html, menu_name" type="string"><![CDATA[
+    html = html + "<thead>"
+    html = html + "<tr>"
+    html = html + "<td>"
+    html = html + "<button onclick=\"ASLEvent('Process_Nav_Cmd', '-1')\"><</button>"
+    html = html + "</td>"
+    html = html + "<th>"
+    html = html + menu_name
+    html = html + "</th>"
+    html = html + "<td>"
+    html = html + "<button onclick=\"ASLEvent('Process_Nav_Cmd', '1')\">></button>"
+    html = html + "</td>"
+    html = html + "</tr>"
+    html = html + "</thead>"
+    return (html)
+  ]]></function>
+  <function name="Process_Nav_Cmd" parameters="s">
+    mod = ToInt(s)
+    do (game, "mod_status_pane_idx", QuickParams("mod", mod))
+  </function>
+  <function name="Process_Cmd" parameters="s">
+    obj = GetObject(s)
+    do (obj, "script")
+    Update_Custom_Status_Pane
+  </function>
+  <function name="Update_Custom_Status_Pane">
+    obj_name = ListItem(game.status_pane_menus, game.status_pane_idx)
+    obj = GetObject("Custom_Status_" + obj_name)
+    do (obj, "update_status")
+  </function>
+  <function name="Process_Inc_Stat" parameters="attr">
+    do (player, "mod_stat_lvl", QuickParams("attr", attr, "mod", 1))
+    do (Custom_Status_Stats, "update_status")
+  </function>
+  <function name="Process_Dec_Stat" parameters="attr">
+    do (player, "mod_stat_lvl", QuickParams("attr", attr, "mod", -1))
+    do (Custom_Status_Stats, "update_status")
+  </function>
+</asl>

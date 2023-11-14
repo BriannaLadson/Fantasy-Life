@@ -1,0 +1,163 @@
+<library>
+	<object name="None" />
+	
+	<function name="Double_To_Int" parameters="double" type="int">
+		string = ToString(double)
+		
+		integer = ToInt(string)
+		
+		return (integer)
+	</function>
+	
+	<function name="Get_Dict_By_Key_Val" parameters="dicts, key, val" type="dictionary">
+		output = NewDictionary()
+		
+		foreach (dict, dicts) {
+			if (DictionaryContains(dict, key)) {
+				value = DictionaryItem(dict, key)
+				
+				if (value = val) {
+					output = dict
+				}
+			}
+		}
+		
+		return (output)
+	</function>
+	
+	<function name="Get_Dicts_By_Key_Val" parameters="dicts, key, val" type="list">
+		output = NewList()
+		
+		foreach (dict, dicts) {
+			if (DictionaryContains(dict, key)) {
+				value = DictionaryItem(dict, key)
+				
+				if (value = val) {
+					list add (output, dict)
+				}
+			}
+		}
+		
+		return (output)
+	</function>
+	
+	<function name="Get_Dicts_Val" parameters="dicts, key" type="list">
+		output = NewList()
+		
+		foreach (dict, dicts) {
+			if (DictionaryContains(dict, key)) {
+				list add (output, DictionaryItem(dict, key))
+			}
+		}
+		
+		return (output)
+	</function>
+
+	<function name="Get_Inv_Items_By_Prototype" parameters="entity, prototype" type="objectlist">
+		inventory = GetDirectChildren(entity)
+		
+		inventory = FilterByAttribute(inventory, "prototype", prototype)
+		
+		return (inventory)
+	</function>
+	
+	<function name="Get_Item_Val" parameters="location, item" type="int">
+		val = item.base_value
+		prototype = item
+		
+		if (HasAttribute(item, "prototype")) {
+			prototype = item.prototype
+		}
+		
+		if (DictionaryContains(location.inventory_value, prototype.name)) {
+			inventory_val = DictionaryItem(location.inventory_value, prototype.name)
+			
+			inventory_val = Ceiling(Int_To_Double(inventory_val) / Int_To_Double(100))
+			
+			val = val + (val * Double_To_Int(inventory_val))
+		}
+		
+		return (val)
+	</function>
+	
+	<function name="Get_Obj_By_Weighted_Chance" parameters="objs, attr" type="object">
+		output = NewObjectList()
+		
+		foreach (obj, objs) {
+			if (HasAttribute(obj, attr)) {
+				val = GetAttribute(obj, attr)
+				
+				for (i, 1, val) {
+					list add (output, obj)
+				}
+			}
+		}
+		
+		output = PickOneObject(output)
+		
+		return (output)
+	</function>
+	
+	<function name="Get_Random_Creature_Type_Weighted" parameters="creature" type="object">
+		creature_types = NewList()
+		
+		foreach (key, creature.creature_type_num) {
+			val = DictionaryItem(creature.creature_type_num, key)
+			
+			for (i, 1, val) {
+				list add (creature_types, key)
+			}
+		}
+		
+		creature_type = PickOneString(creature_types)
+		
+		return (GetObject(creature_type))
+	</function>
+	
+	<function name="Int_To_Double" parameters="integer" type="double">
+		string = ToString(integer)
+		
+		double = ToDouble(string)
+		
+		return (double)
+	</function>
+	
+	<function name="Stack_Item" parameters="entity, item">
+		prototypes = FilterByAttribute(GetDirectChildren(entity), "prototype", item.prototype)
+		
+		prototypes = FilterByNotAttribute(prototypes, "name", item.name)
+		
+		if (ListCount(prototypes) > 0) {
+			prototype = ListItem(prototypes, 0)
+			
+			do(prototype, "mod_quantity", QuickParams("mod", 1))
+			
+			destroy(item.name)
+		}
+	</function>
+
+	<function name="Transfer_Gold" parameters="giver, taker, gold">
+		giver.gold = giver.gold - gold
+		
+		taker.gold = taker.gold + gold
+	</function>
+
+	<function name="Transfer_Item" parameters="giver, taker, item">
+		<!--Creature to Location-->
+		if (DoesInherit(giver, "Creature") and taker.prototype = Location) {
+			<!--Add item to Location's inventory-->
+			do(taker, "mod_inventory", QuickParams("item_name", item.prototype.name, "mod", 1))
+			
+			<!--Remove item from Creature's inventory-->
+			destroy(item.name)
+		}
+		<!--Location to Creature-->
+		else if (giver.prototype = Location and DoesInherit(taker, "Creature")) {
+			<!--Add item to Creature's inventory-->
+			do(item, "generate", QuickParams("parent", taker))
+			
+			<!--Remove item from Location's inventory-->
+			do(giver, "mod_inventory", QuickParams("item_name", item.name, "mod", -1))
+		}
+	</function>
+</library>

@@ -1,0 +1,159 @@
+<library>
+	<!--Axe-->
+	<object name="Bone_Axe">
+		<inherit name="Weapon" />
+		
+		<alias>Bone Axe</alias>
+		<main_alias>Bone Axe</main_alias>
+		
+		<can_cut_wood type="boolean">true</can_cut_wood>
+		
+		<units type="int">3</units>
+		
+		<material type="object">Bone</material>
+		
+		<base_value type="int">3</base_value>
+	</object>
+	
+	<object name="Wooden_Axe">
+		<inherit name="Weapon" />
+		
+		<alias>Wooden Axe</alias>
+		<main_alias>Wooden Axe</main_alias>
+		
+		<can_cut_wood type="boolean">true</can_cut_wood>
+		
+		<units type="int">3</units>
+		
+		<material type="object">Wood</material>
+		
+		<base_value type="int">9</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Wood</key>
+				<value type="int">3</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Stone_Axe">
+		<inherit name="Weapon" />
+		
+		<alias>Stone Axe</alias>
+		<main_alias>Stone Axe</main_alias>
+		
+		<can_cut_wood type="boolean">true</can_cut_wood>
+		
+		<units type="int">3</units>
+		
+		<material type="object">Stone</material>
+		
+		<base_value type="int">12</base_value>
+	</object>
+	
+	<object name="Iron_Axe">
+		<inherit name="Weapon" />
+		
+		<alias>Iron Axe</alias>
+		<main_alias>Iron Axe</main_alias>
+		
+		<can_cut_wood type="boolean">true</can_cut_wood>
+		
+		<units type="int">3</units>
+		
+		<material type="object">Iron</material>
+		
+		<base_value type="int">30</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Iron</key>
+				<value type="int">3</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<!--Pickaxe-->
+	<object name="Bone_Pickaxe">
+		<inherit name="Weapon" />
+		
+		<alias>Bone Pickaxe</alias>
+		<main_alias>Bone Pickaxe</main_alias>
+		
+		<units type="int">2</units>
+		
+		<material type="object">Bone</material>
+		
+		<base_value type="int">2</base_value>
+		
+		<can_mine type="boolean">true</can_mine>
+	</object>
+	
+	<object name="Wooden_Pickaxe">
+		<inherit name="Weapon" />
+		
+		<alias>Wooden Pickaxe</alias>
+		<main_alias>Wooden Pickaxe</main_alias>
+		
+		<units type="int">2</units>
+		
+		<material type="object">Wood</material>
+		
+		<base_value type="int">6</base_value>
+		
+		<can_mine type="boolean">true</can_mine>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Wood</key>
+				<value type="int">2</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Stone_Pickaxe">
+		<inherit name="Weapon" />
+		
+		<alias>Stone Pickaxe</alias>
+		<main_alias>Stone Pickaxe</main_alias>
+		
+		<units type="int">2</units>
+		
+		<material type="object">Stone</material>
+		
+		<base_value type="int">8</base_value>
+		
+		<can_mine type="boolean">true</can_mine>
+	</object>
+	
+	<object name="Iron_Pickaxe">
+		<inherit name="Weapon" />
+		
+		<alias>Iron Pickaxe</alias>
+		<main_alias>Iron Pickaxe</main_alias>
+		
+		<units type="int">2</units>
+		
+		<material type="object">Iron</material>
+		
+		<base_value type="int">20</base_value>
+		
+		<can_mine type="boolean">true</can_mine>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Iron</key>
+				<value type="int">2</value>
+			</item>
+		</reagents>
+	</object>
+</library>

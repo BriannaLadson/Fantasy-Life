@@ -1,0 +1,450 @@
+<library>
+	<type name="Body_Type">
+		<add_bps type="script">
+			foreach (bp_attr, this.bp_attrs) {
+				bp = GetAttribute(this, bp_attr)
+				
+				set(entity, bp_attr, bp)
+				list add (entity.bp_attrs, bp_attr)
+			}
+		</add_bps>
+	</type>
+	
+	<type name="Creature">
+		<bp_attrs type="stringlist" />
+		
+		<creature_type_num type="dictionary" />
+		<creature_type_ratio type="dictionary" />
+		
+		<hand_trait type="object">None</hand_trait>
+		
+		<add_creature_type type="script">
+			<!--Creature Type Num-->
+			if (not DictionaryContains(this.creature_type_num, creature_type.name)) {
+				DictionaryAdd(this.creature_type_num, creature_type.name, 1)
+			}
+			else {
+				num = DictionaryItem(this.creature_type_num, creature_type.name)
+				
+				DictionaryAdd(this.creature_type_num, creature_type.name, num + 1)
+			}
+			
+			<!--Creature Type Ratio-->
+			total = 0
+			
+			foreach (key, this.creature_type_num) {
+				val = DictionaryItem(this.creature_type_num, key)
+				
+				total = total + val
+			}
+			
+			foreach (key, this.creature_type_num) {
+				val = DictionaryItem(this.creature_type_num, key)
+				
+				ratio = (val / total) * 100
+				
+				DictionaryAdd(this.creature_type_ratio, key, ratio)
+			}
+		</add_creature_type>
+	
+		<add_bps type="script">
+			creature_type = Get_Random_Creature_Type_Weighted(this)
+			
+			body_type = creature_type.body_type
+			
+			do(body_type, "add_bps", QuickParams("entity", this))
+		</add_bps>
+		
+		<set type="script">
+			do(this, "set_stats")
+		</set>
+		
+		<set_stats type="script">
+			foreach (key, game.stats) {
+				do(this, "set_stat_lvl", QuickParams("attr", key, "lvl", 1))
+			}
+		</set_stats>
+		
+		<set_stat_lvl type="script">
+			set(this, attr + "_lvl", lvl)
+			
+			set(this, attr + "_curxp", 0)
+			
+			set(this, attr + "_maxxp", (lvl + 1) * 100)
+		</set_stat_lvl>
+		
+		<mod_stat_lvl type="script">
+			lvl = GetAttribute(this, attr + "_lvl")
+			
+			set(this, attr + "_lvl", lvl + mod)
+			set(this, attr + "_curxp", 0)
+			set(this, attr + "_maxxp", (lvl + mod) * 100)
+		</mod_stat_lvl>
+		
+		<mod_stat_xp type="script">
+			lvl = GetAttribute(this, attr + "_lvl")
+			cur = GetAttribute(this, attr + "_curxp")
+			max = GetAttribute(this, attr + "_maxxp")
+			
+			cur = cur + mod
+			
+			lvl_mod = 0
+			
+			if (cur >= max) {
+				lvl_mod = cur / max
+				
+				cur = cur % max
+			}
+			
+			set(this, attr + "_lvl", lvl + lvl_mod)
+			set(this, attr + "_curxp", cur)
+			set(this, attr + "_maxxp", ((lvl + lvl_mod) + 1) * 100)
+			
+		</mod_stat_xp>
+		
+		<equip_item type="script">
+			DictionaryAdd(bp, "equip_item", item)
+			
+			item.is_equipped = true
+			item.drop = false
+			
+			do(item, "set_iverbs")
+			
+			do(item, "set_alias")
+		</equip_item>
+		
+		<unequip_item type="script">
+			DictionaryAdd(bp, "equip_item", None)
+			
+			item.is_equipped = false
+			item.drop = true
+			
+			do(item, "set_iverbs")
+			
+			do(item, "set_alias")
+		</unequip_item>
+	</type>
+	
+	<type name="Sentient">
+		<inherit name="Creature" />
+		
+		<gold type="int">0</gold>
+	</type>
+	
+	<type name="Creature_Type">
+		<weight type="int">1</weight>
+		
+		<body_type type="object">None</body_type>
+	</type>
+	
+	<type name="Faction">
+		<culture type="object">None</culture>
+		
+		<capital type="object">None</capital>
+		
+		<locations type="objectlist" />
+		
+		<gen_alias type="script">
+			prefix = PickOneString(this.culture.faction_prefixes)
+			
+			suffix = PickOneString(game.faction_suffixes)
+			
+			this.alias = "The " + prefix + " " + suffix
+		</gen_alias>
+	</type>
+	
+	<type name="Hand_Trait">
+		<inherit name="Trait" />
+		
+		<hand_stats type="stringlist">
+			<value>left_hand</value>
+			<value>right_hand</value>
+		</hand_stats>
+		
+		<set_hand_stats type="script">
+			foreach (hand_stat, this.hand_stats) {
+				do(entity, "set_stat_lvl", QuickParams("attr", hand_stat, "lvl", 100))
+			}
+		</set_hand_stats>
+	</type>
+	
+	<type name="Item">
+		<inherit name="editor_object" />
+		
+		<has_material type="boolean">false</has_material>
+		
+		<material type="object">None</material>
+		
+		<take type="boolean">true</take>
+		
+		<can_equip type="boolean">true</can_equip>
+		<is_equipped type="boolean">false</is_equipped>
+		
+		<can_cut_wood type="boolean">false</can_cut_wood>
+		<can_mine type="boolean">false</can_mine>
+		
+		<can_craft type="boolean">false</can_craft>
+		
+		<units type="int">1</units>
+		
+		<durability_cur type="int">1</durability_cur>
+		<durability_max type="int">1</durability_max>
+		
+		<can_stack type="boolean">true</can_stack>
+		
+		<quantity type="int">1</quantity>
+		
+		<base_value type="int">1</base_value>
+		
+		<generate type="script">
+			<!--Clone-->
+			clone = CloneObject(this)
+			
+			<!--Durability-->
+			if (clone.material = None and not DoesInherit(clone, "Material")) {
+				clone.durability_cur = clone.units
+				clone.durability_max = clone.units
+			}
+			
+			else if (DoesInherit(clone, "Material")) {
+				clone.durabiltiy_cur = clone.durability
+				clone.durabiltiy_max = clone.durability
+			}
+			
+			else {
+				clone.durability_cur = clone.material.durability * 25
+				clone.durability_max = clone.material.durability * 25
+			}
+			
+			<!--Alias-->
+			do(clone, "set_alias")
+			
+			<!--Verbs-->
+			do(clone, "set_iverbs")
+			
+			<!--Parent-->
+			clone.parent = parent
+		</generate>
+		
+		<look type="script">
+			msg("*Base Value: " + ToString(this.base_value))
+			
+			msg(" ")
+			
+			msg("*Durability: " + ToString(this.durability_cur) + " / " + ToString(this.durability_max))
+			
+			if (HasAttribute(this, "reagents")) {
+				msg(" ")
+				
+				msg("*Reagent(s):")
+				
+				foreach (key, this.reagents) {
+					reagent = GetObject(key)
+					val = DictionaryItem(this.reagents, key)
+					
+					msg("-" + reagent.alias + ": " + ToString(val))
+				}
+			}
+		</look>
+		
+		<set_alias type="script">
+			alias = this.main_alias
+			
+			<!--Equipped-->
+			if (this.is_equipped) {
+				alias = alias + " (Equipped)"
+			}
+			
+			<!--Quantity-->
+			if (this.quantity > 1) {
+				alias = alias + " (" + ToString(this.quantity) + ")"
+			}
+			
+			this.alias = alias
+		</set_alias>
+	
+		<set_verbs type="script">
+			do(this, set_iverbs)
+		</set_verbs>
+	
+		<set_iverbs type="script">
+			verbs = NewStringList()
+			
+			<!--Look-->
+			list add (verbs, "Look")
+			
+			<!--Sell-->
+			list add (verbs, "Sell")
+			
+			<!--Equip-->
+			if (this.can_equip) {
+				if (not this.is_equipped) {
+					list add (verbs, "Equip")
+					
+					<!--Cut Wood-->
+					if (ListContains(this.inventoryverbs, "Cut Wood")) {
+						list remove(this.inventoryverbs, "Cut Wood")
+					}
+					
+					<!--Mine-->
+					if (ListContains(this.inventoryverbs, "Mine")) {
+						list remove(this.inventoryverbs, "Mine")
+					}
+				}
+				
+				else {
+					<!--Cut Wood-->
+					if (this.can_cut_wood) {
+						list add (verbs, "Cut Wood")
+					}
+					
+					<!--Mine-->
+					if (this.can_mine) {
+						list add (verbs, "Mine")
+					}
+				
+					list add (verbs, "Unequip")
+				}
+			}
+			
+			<!--Craft-->
+			if (this.can_craft) {
+				list add (verbs, "Craft")
+			}
+			
+			<!--Drop-->
+			if (this.drop) {
+				list add (verbs, "Drop")
+			}
+			
+			this.inventoryverbs = verbs
+		</set_iverbs>
+	
+		<mod_durability type="script">
+			cur = this.durability_cur
+			max = this.durability_max
+			
+			cur = cur + mod
+			
+			if (cur > max) {
+				cur = max
+			}
+			
+			set(this, "durability_cur", cur)
+			
+			if (0 >= cur) {
+				if (this.parent = player) {
+					msg("Your " + this.alias + " has been destroyed!")
+				}
+				
+				if (this.is_equipped) {
+					bps = Get_All_BPs(this.parent)
+					bp = Get_Dict_By_Key_Val(bps, "equip_item", this)
+					
+					do(this.parent, "unequip_item", QuickParams("bp", bp, "item", this))
+				}
+				
+				destroy(this.name)
+			}
+		</mod_durability>
+	
+		<mod_quantity type="script">
+			this.quantity = this.quantity + mod
+			
+			do(this, "set_alias")
+			
+			if (0 >= this.quantity) {
+				if (this.is_equipped) {
+					bps = Get_All_BPs(this.parent)
+					bp = Get_Dict_By_Key_Val(bps, "equip_item", this)
+					
+					do(this.parent, "unequip_item", QuickParams("bp", bp, "item", this))
+				}
+				
+				destroy(this.name)
+			}
+		</mod_quantity>
+	</type>
+	
+	<type name="Material">
+		<inherit name="Item" />
+		
+		<is_hard type="boolean">false</is_hard>
+		
+		<durability type="int">1</durability>
+	</type>
+	
+	<type name="Mineral">
+		<inherit name="Item" />
+		
+		<mineral_chance type="int">100</mineral_chance>
+	</type>
+	
+	<type name="Trait">
+	</type>
+	
+	<type name="Race">
+		<inherit name="Creature_Type" />
+		
+		<faction_prefixes type="stringlist" />
+		
+		<name_prefixes type="stringlist" />
+		
+		<name_suffixes type="stringlist" />
+	</type>
+	
+	<type name="Role">
+		<items type="dictionary" />
+		
+		<max type="int">10</max>
+		
+		<add_items type="script">
+			foreach (key, this.items) {
+				obj = GetObject(key)
+				num = DictionaryItem(this.items, key)
+				
+				for (i, 1, num) {
+					do(obj, "generate", QuickParams("parent", entity))
+				}
+			}
+		</add_items>
+		
+		<add_loc_inventory type="script" />
+		
+		<products type="objectlist" />
+	</type>
+	
+	<type name="TA_Room">
+		<inherit name="editor_room" />
+		
+		<isroom type="boolean">true</isroom>
+		
+		<usedefaultprefix type="boolean">false</usedefaultprefix>
+	</type>
+	
+	<type name="Weapon">
+		<inherit name="Item" />
+		
+		<has_material type="boolean">true</has_material>
+		
+		<can_stack type="boolean">false</can_stack>
+		
+		<material_types type="stringlist">
+			<value>is_hard</value>
+		</material_types>
+		
+		<material type="object">None</material>
+	</type>
+	
+	<type name="Workshop">
+		<inherit name="Item" />
+		
+		<units type="int">10</units>
+		
+		<can_craft type="boolean">true</can_craft>
+		
+		<products type="objectlist" />
+		
+		<stat_attr type="string">None</stat_attr>
+	</type>
+</library>

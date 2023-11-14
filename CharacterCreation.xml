@@ -1,0 +1,85 @@
+<library>
+	<function name="Choose_Leveling">
+		ClearScreen()
+		
+		ShowMenu ("Choose your leveling system.", Split("XP;Point"), false) {
+			if (result = "XP") {
+				game.levelling = true
+			}
+			
+			else {
+				game.levelling = false
+			}
+			
+			Choose_Race()
+		}
+	</function>
+
+	<function name="Choose_Race">
+		ClearScreen()
+		
+		ShowMenu ("Choose your race.", game.races, false) {
+			race = GetObject(result)
+			
+			do(player, "add_creature_type", QuickParams("creature_type", race))
+			do(player, "add_bps")
+			
+			Choose_Handedness()
+		}
+	</function>
+	
+	<function name="Choose_Handedness">
+		ClearScreen()
+		
+		ShowMenu ("Choose your handedness.", game.hand_traits, false) {
+			trait = GetObject(result)
+			
+			player.hand_trait = trait
+			
+			do(trait, "set_hand_stats", QuickParams("entity", player))
+			
+			Choose_Role()
+		}
+	</function>
+	
+	<function name="Choose_Role">
+		ClearScreen()
+		
+		ShowMenu ("Choose your role. (Only affects starting items!)", game.roles, false) {
+			role = GetObject(result)
+			
+			do(role, "add_items", QuickParams("entity", player))
+			
+			EnableTurnScript(TakeTurn_TS)
+			Random_Region_Parent(player)
+		}
+	</function>
+
+	<function name="Give_XP" parameters="entity, attr">
+		if (not entity = player or (entity = player and game.levelling)) {
+			lvl = GetAttribute(entity, attr + "_lvl")
+			max = lvl
+			
+			if (0 >= lvl) {
+				max = 1
+			}
+			
+			xp = GetRandomInt(1, max)
+			
+			do(entity, "mod_stat_xp", QuickParams("attr", attr, "mod", xp))
+		}
+	</function>
+
+	<function name="Update_Status">
+		status = NewStringDictionary()
+		
+		<!--Time-->
+		DictionaryAdd(status, "time", "Time: " + Get_Time())
+		DictionaryAdd(status, "date", "Date: " + Get_Date())
+		
+		<!--Gold-->
+		DictionaryAdd(status, "gold", "Gold: " + ToString(player.gold))
+		
+		player.statusattributes = status
+	</function>
+</library>

@@ -1,0 +1,108 @@
+<library>
+	<!--Functions-->
+	<function name="Get_All_BPs" parameters="entity" type="list">
+		bps = NewList()
+		
+		foreach (bp_attr, entity.bp_attrs) {
+			bp = GetAttribute(entity, bp_attr)
+			
+			list add (bps, bp)
+		}
+		
+		return (bps)
+	</function>
+	
+	<!--Body Types-->
+	<object name="Humanoid">
+		<inherit name="Body_Type" />
+		
+		<alias>Humanoid</alias>
+		
+		<head_bp type="dictionary">
+			<item>
+				<key>alias</key>
+				<value>Head</value>
+			</item>
+			<item>
+				<key>health_cur</key>
+				<value type="int">100</value>
+			</item>
+			<item>
+				<key>health_max</key>
+				<value type="int">100</value>
+			</item>
+			<item>
+				<key>can_equip</key>
+				<value type="boolean">false</value>
+			</item>
+			<item>
+				<key>equip_item</key>
+				<value type="object">None</value>
+			</item>
+			<item>
+				<key>hand_stat</key>
+				<value type="string">None</value>
+			</item>
+		</head_bp>
+		
+		<left_hand_bp type="dictionary">
+			<item>
+				<key>alias</key>
+				<value>Left Hand</value>
+			</item>
+			<item>
+				<key>health_cur</key>
+				<value type="int">100</value>
+			</item>
+			<item>
+				<key>health_max</key>
+				<value type="int">100</value>
+			</item>
+			<item>
+				<key>can_equip</key>
+				<value type="boolean">true</value>
+			</item>
+			<item>
+				<key>equip_item</key>
+				<value type="object">None</value>
+			</item>
+			<item>
+				<key>hand_stat</key>
+				<value type="string">left_hand</value>
+			</item>
+		</left_hand_bp>
+		
+		<right_hand_bp type="dictionary">
+			<item>
+				<key>alias</key>
+				<value>Right Hand</value>
+			</item>
+			<item>
+				<key>health_cur</key>
+				<value type="int">100</value>
+			</item>
+			<item>
+				<key>health_max</key>
+				<value type="int">100</value>
+			</item>
+			<item>
+				<key>can_equip</key>
+				<value type="boolean">true</value>
+			</item>
+			<item>
+				<key>equip_item</key>
+				<value type="object">None</value>
+			</item>
+			<item>
+				<key>hand_stat</key>
+				<value type="string">right_hand</value>
+			</item>
+		</right_hand_bp>
+		
+		<bp_attrs type="stringlist">
+			<value>head_bp</value>
+			<value>left_hand_bp</value>
+			<value>right_hand_bp</value>
+		</bp_attrs>
+	</object>
+</library>

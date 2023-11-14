@@ -1,0 +1,300 @@
+<library>
+	<!--Functions-->
+	<function name="Get_Region_By_Coors" parameters="x,y" type="object">
+		y_array = ListItem(game.world_map, y)
+		region = ListItem(y_array, x)
+		
+		return (region)
+	</function>
+	
+	<function name="Get_Random_Region" type="object">
+		x = GetRandomInt(0, game.world_size - 1)
+		y = GetRandomInt(0, game.world_size - 1)
+		
+		region = Get_Region_By_Coors(x, y)
+		
+		return (region)
+	</function>
+	
+	<function name="Random_Region_Parent" parameters="entity">
+		region = Get_Random_Region()
+		
+		entity.parent = region
+	</function>
+	
+	<function name="Generate_Location" parameters="region, faction, is_capital">
+		if (region = None) {
+			region = Get_Random_Region()
+		}
+		
+		if (region.location = None) {
+			clone = CloneObject(Location)
+			
+			clone.parent = region
+			region.location = clone
+			
+			<!--Faction-->
+			clone.faction = faction
+			
+			<!--Alias-->
+			if (not clone.faction = None) {
+				do(clone, "set_alias")
+			}
+			
+			<!--Location / Capital-->
+			list add (faction.locations, clone)
+			
+			if (is_capital) {
+				clone.is_capital = True
+				
+				faction.capital = clone
+			}
+			
+			<!--Roles-->
+			foreach (role, game.roles) {
+				max = role.max
+				
+				if (clone.is_capital) {
+					max = max * 10
+				}
+				
+				num = GetRandomInt(0, max)
+				
+				DictionaryAdd(clone.roles, role.name, num)
+			}
+			
+			<!--Starting Inventory-->
+			do(clone, "set_inventory")
+			
+			for (i, 1, 2) {
+				do(clone, "add_inventory")
+			}
+			
+			<!--Gold-->
+			do(clone, "generate_gold")
+			
+			<!--game.locations-->
+			list add (game.locations, clone)
+		}
+	</function>
+	
+	<function name="Add_Locs_Inventory">
+		foreach (loc, game.locations) {
+			do(loc, "add_inventory")
+		}
+	</function>
+	
+	<!--Rooms-->
+	<object name="Region">
+		<inherit name="TA_Room" />
+		
+		<location type="object">None</location>
+		
+		<enter type="script">
+			foreach (key, game.directions) {
+				coors = DictionaryItem(game.directions, key)
+				
+				coors = Split(coors)
+				
+				cx = ListItem(coors, 0)
+				cy = ListItem(coors, 1)
+				
+				tx = this.x + ToInt(cx)
+				ty = this.y + ToInt(cy)
+				
+				if (0 > tx) {
+					tx = game.world_size - 1
+				}
+				
+				if (tx > game.world_size - 1) {
+					tx = 0
+				}
+				
+				if (0 > ty) {
+					ty = game.world_size - 1
+				}
+				
+				if (ty > game.world_size - 1) {
+					ty = 0
+				}
+				
+				target = Get_Region_By_Coors(tx, ty)
+				
+				create exit ("region_" + key + "_exit", key, this, target, key + "direction")
+			}
+		</enter>
+		
+		<set type="script">
+			do(this, "set_alias")
+			
+			do(this, "set_stats")
+		</set>
+		
+		<set_alias type="script">
+			this.alias = "Region (" + ToString(this.x) + "," + ToString(this.y) + ")"
+		</set_alias>
+		
+		<set_stats type="script">
+			foreach (key, game.region_stats) {
+				set(this, key, GetRandomInt(0, 100))
+			}
+		</set_stats>
+	</object>
+
+	<object name="Location">
+		<inherit name="TA_Room" />
+		
+		<faction type="object">None</faction>
+		
+		<is_capital type="boolean">false</is_capital>
+		
+		<gold type="int">0</gold>
+		
+		<inventory type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">0</value>
+			</item>
+			<item>
+				<key>Iron_Ore</key>
+				<value type="int">0</value>
+			</item>
+			<item>
+				<key>Wood</key>
+				<value type="int">0</value>
+			</item>
+		</inventory>
+		
+		<inventory_value type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">0</value>
+			</item>
+			<item>
+				<key>Iron_Ore</key>
+				<value type="int">0</value>
+			</item>
+			<item>
+				<key>Wood</key>
+				<value type="int">0</value>
+			</item>
+		</inventory_value>
+		
+		<roles type="dictionary" />
+		
+		<displayverbs type="stringlist">
+			<value>Enter</value>
+		</displayverbs>
+		
+		<set_alias type="script">
+			culture = this.faction.culture
+			
+			pre = PickOneString(culture.name_prefixes)
+			
+			vow = PickOneString(game.vowels)
+	
+			suf = PickOneString(culture.name_suffixes)
+			
+			if (RandomChance(50)) {
+				vow1 = PickOneString(game.vowels)
+				
+				this.alias = pre + vow + vow1 + suf
+			}
+			
+			else {
+				this.alias = pre + vow + suf
+			}
+		</set_alias>
+		
+		<enter type="script">
+			player.parent = this
+			
+			create exit("region_location_exit", "out", this, this.parent, "outdirection")
+		</enter>
+		
+		<set_inventory type="script">
+			attrs = Split("materials;minerals")
+			
+			foreach (attr, attrs) {
+				objs = GetAttribute(game, attr)
+				
+				foreach (obj, objs) {
+					do(this, "mod_inventory", QuickParams("item_name", obj.name, "mod", 0))
+				}
+			}
+		</set_inventory>
+		
+		<add_inventory type="script">
+			foreach (role_name, this.roles) {
+				role = GetObject(role_name)
+				
+				do(role, "add_loc_inventory", QuickParams("loc", this))
+			}
+		</add_inventory>
+		
+		<mod_inventory type="script">
+			if (not DictionaryContains(this.inventory, item_name)) {
+				if (mod >= 0) {
+					DictionaryAdd(this.inventory, item_name, mod)
+				}
+			}
+			
+			else {
+				val = DictionaryItem(this.inventory, item_name)
+				
+				val = val + mod
+				
+				if (val >= 0) {
+					DictionaryAdd(this.inventory, item_name, val)
+				}
+			}
+		</mod_inventory>
+		
+		<mod_inventory_value type="script">
+			if (not DictionaryContains(this.inventory_value, item_name)) {
+				DictionaryAdd(this.inventory_value, item_name, mod)
+			}
+			
+			else {
+				val = DictionaryItem(this.inventory_value, item_name)
+				
+				val = val + mod
+				
+				DictionaryAdd(this.inventory_value, item_name, val)
+			} 
+		</mod_inventory_value>
+	
+		<generate_gold type="script">
+			max = 1000
+			
+			if (this.is_capital) {
+				max = max * 10
+			}
+			
+			this.gold = GetRandomInt(0, max)
+		</generate_gold>
+	</object>
+
+	<!--Technical Rooms-->
+	<object name="Character_Creation">
+		<inherit name="TA_Room" />
+		
+		<alias>Character Creation</alias>
+		
+		<enter type="script">
+			do(player, "set")
+			
+			Choose_Leveling()
+		</enter>
+	</object>
+	
+	<object name="World_Settings">
+		<inherit name="TA_Room" />
+		
+		<alias>World Settings</alias>
+		
+		<enter type="script">
+			Enter_World_Size()
+		</enter>
+	</object>
+</library>
