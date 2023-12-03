@@ -1,0 +1,188 @@
+<library>
+	<object name="Beer">
+		<inherit name="Food" />
+		
+		<alias>Beer</alias>
+		<main_alias>Beer</main_alias>
+		
+		<base_value type="int">3</base_value>
+		
+		<alcohol_mod type="int">5</alcohol_mod>
+		
+		<units type="int">3</units>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Grain</key>
+				<value type="int">3</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Fish">
+		<inherit name="Food" />
+		
+		<alias>Fish</alias>
+		<main_alias>Fish</main_alias>
+		
+		<base_value type="int">10</base_value>
+		
+		<hunger_mod type="int">7</hunger_mod>
+	</object>
+
+	<object name="Fruit">
+		<inherit name="Food" />
+		
+		<alias>Fruit</alias>
+		<main_alias>Fruit</main_alias>
+		
+		<base_value type="int">2</base_value>
+		
+		<can_forage type="boolean">true</can_forage>
+		
+		<hunger_mod type="int">5</hunger_mod>
+	</object>
+	
+	<object name="Grain">
+		<inherit name="Food" />
+		
+		<alias>Grain</alias>
+		<main_alias>Grain</main_alias>
+		
+		<can_forage type="boolean">true</can_forage>
+		
+		<hunger_mod type="int">1</hunger_mod>
+	</object>
+	
+	<object name="Honey">
+		<inherit name="Food" />
+		
+		<alias>Honey</alias>
+		<main_alias>Honey</main_alias>
+		
+		<base_value type="int">1</base_value>
+		
+		<can_forage type="boolean">true</can_forage>
+		
+		<hunger_mod type="int">1</hunger_mod>
+	</object>
+	
+	<object name="Mead">
+		<inherit name="Food" />
+		
+		<alias>Mead</alias>
+		<main_alias>Mead</main_alias>
+		
+		<base_value type="int">3</base_value>
+		
+		<alcohol_mod type="int">6</alcohol_mod>
+		
+		<units type="int">3</units>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Honey</key>
+				<value type="int">3</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Rum">
+		<inherit name="Food" />
+		
+		<alias>Rum</alias>
+		<main_alias>Rum</main_alias>
+		
+		<base_value type="int">6</base_value>
+		
+		<alcohol_mod type="int">9</alcohol_mod>
+		
+		<units type="int">3</units>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Sugarcane</key>
+				<value type="int">3</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Sugarcane">
+		<inherit name="Food" />
+		
+		<alias>Sugarcane</alias>
+		<main_alias>Sugarcane</main_alias>
+		
+		<base_value type="int">2</base_value>
+		
+		<can_forage type="boolean">true</can_forage>
+		
+		<hunger_mod type="int">2</hunger_mod>
+	</object>
+	
+	<object name="Vegetable">
+		<inherit name="Food" />
+		
+		<alias>Vegetable</alias>
+		<main_alias>Vegetable</main_alias>
+		
+		<base_value type="int">2</base_value>
+		
+		<can_forage type="boolean">true</can_forage>
+		
+		<hunger_mod type="int">5</hunger_mod>
+	</object>
+	
+	<object name="Water">
+		<inherit name="Food" />
+		
+		<alias>Water</alias>
+		<main_alias>Water</main_alias>
+		
+		<base_value type="int">2</base_value>
+		
+		<can_forage type="boolean">true</can_forage>
+		
+		<thirst_mod type="int">5</thirst_mod>
+	</object>
+	
+	<object name="Whiskey">
+		<inherit name="Food" />
+		
+		<alias>Whiskey</alias>
+		<main_alias>Whiskey</main_alias>
+		
+		<base_value type="int">6</base_value>
+		
+		<alcohol_mod type="int">8</alcohol_mod>
+		
+		<units type="int">3</units>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Grain</key>
+				<value type="int">6</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Wine">
+		<inherit name="Food" />
+		
+		<alias>Wine</alias>
+		<main_alias>Wine</main_alias>
+		
+		<base_value type="int">6</base_value>
+		
+		<alcohol_mod type="int">7</alcohol_mod>
+		
+		<units type="int">3</units>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Fruit</key>
+				<value type="int">3</value>
+			</item>
+		</reagents>
+	</object>
+</library>

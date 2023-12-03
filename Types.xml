@@ -18,6 +18,11 @@
 		
 		<hand_trait type="object">None</hand_trait>
 		
+		<conscious type="boolean">true</conscious>
+		
+		<dead type="boolean">false</dead>
+		<death_type type="string">None</death_type>
+		
 		<add_creature_type type="script">
 			<!--Creature Type Num-->
 			if (not DictionaryContains(this.creature_type_num, creature_type.name)) {
@@ -56,8 +61,62 @@
 		</add_bps>
 		
 		<set type="script">
+			this.bp_attrs = NewStringList()
+			
+			this.creature_type_num = NewDictionary()
+			this.creature_type_ratio = NewDictionary()
+			
+			this.hand_trait = None
+			
+			this.conscious = true
+			
+			this.dead = false
+			this.death_type = "None"
+			
+			do(this, "destroy_inventory")
+			
+			do(this, "set_needs")
+			do(this, "set_needs_decay")
 			do(this, "set_stats")
 		</set>
+		
+		<set_needs type="script">
+			foreach (key, game.needs) {
+				do(this, "set_need", QuickParams("attr", key, "max", 100))
+			}
+		</set_needs>
+		
+		<set_need type="script">
+			set(this, attr + "_cur", max)
+			set(this, attr + "_max", max)
+		</set_need>
+		
+		<set_needs_decay type="script">
+			foreach (key, game.needs) {
+				creature_type = Get_Random_Creature_Type_Weighted(this)
+				
+				decay = GetAttribute(creature_type, key + "_decay")
+				
+				do(this, "set_need_decay", QuickParams("attr", key, "decay", decay))
+			}
+		</set_needs_decay>
+		
+		<set_need_decay type="script">
+			set(this, attr + "_decay", decay)
+		</set_need_decay>
+		
+		<mod_need type="script">
+			cur = GetAttribute(this, attr + "_cur")
+			max = GetAttribute(this, attr + "_max")
+			
+			cur = cur + mod
+			
+			if (cur > max) {
+				cur = max
+			}
+			
+			set(this, attr + "_cur", cur)
+		</mod_need>
 		
 		<set_stats type="script">
 			foreach (key, game.stats) {
@@ -123,6 +182,30 @@
 			
 			do(item, "set_alias")
 		</unequip_item>
+		
+		<destroy_inventory type="script">
+			obj_names = NewStringList()
+			
+			foreach (obj, GetAllChildObjects(this)) {
+				list add (obj_names, obj.name)
+			}
+			
+			foreach (obj_name, obj_names) {
+				destroy(obj_name)
+			}
+		</destroy_inventory>
+	
+		<consume type="script">
+			foreach (key, game.needs) {
+				if (HasAttribute(item, key + "_mod")) {
+					mod = GetAttribute(item, key + "_mod")
+					
+					do(this, "mod_need", QuickParams("attr", key, "mod", mod))
+				}
+			}
+			
+			destroy(item.name)
+		</consume>
 	</type>
 	
 	<type name="Sentient">
@@ -135,6 +218,11 @@
 		<weight type="int">1</weight>
 		
 		<body_type type="object">None</body_type>
+		
+		<alcohol_decay type="int">-4</alcohol_decay>
+		<energy_decay type="int">-4</energy_decay>
+		<hunger_decay type="int">-4</hunger_decay>
+		<thirst_decay type="int">-4</thirst_decay>
 	</type>
 	
 	<type name="Faction">
@@ -151,6 +239,16 @@
 			
 			this.alias = "The " + prefix + " " + suffix
 		</gen_alias>
+	</type>
+	
+	<type name="Food">
+		<inherit name="Item" />
+		
+		<alcohol_mod type="int">0</alcohol_mod>
+		<hunger_mod type="int">0</hunger_mod>
+		<thirst_mod type="int">0</thirst_mod>
+		
+		<can_consume type="boolean">true</can_consume>
 	</type>
 	
 	<type name="Hand_Trait">
@@ -182,8 +280,13 @@
 		
 		<can_cut_wood type="boolean">false</can_cut_wood>
 		<can_mine type="boolean">false</can_mine>
+		<can_fish type="boolean">false</can_fish>
 		
 		<can_craft type="boolean">false</can_craft>
+		
+		<can_forage type="boolean">false</can_forage>
+		
+		<can_consume type="boolean">false</can_consume>
 		
 		<units type="int">1</units>
 		
@@ -195,6 +298,8 @@
 		<quantity type="int">1</quantity>
 		
 		<base_value type="int">1</base_value>
+		
+		<reactants type="dictionary" />
 		
 		<generate type="script">
 			<!--Clone-->
@@ -227,12 +332,15 @@
 		</generate>
 		
 		<look type="script">
+			<!--Base Value-->
 			msg("*Base Value: " + ToString(this.base_value))
 			
 			msg(" ")
 			
+			<!--Durability-->
 			msg("*Durability: " + ToString(this.durability_cur) + " / " + ToString(this.durability_max))
 			
+			<!--Reagents-->
 			if (HasAttribute(this, "reagents")) {
 				msg(" ")
 				
@@ -243,6 +351,32 @@
 					val = DictionaryItem(this.reagents, key)
 					
 					msg("-" + reagent.alias + ": " + ToString(val))
+				}
+			}
+			
+			<!--Need Mods-->
+			s_list = NewStringList()
+			
+			foreach (key, game.needs) {
+				val = DictionaryItem(game.needs, key)
+				
+				if (HasAttribute(this, key + "_mod")) {
+					mod = GetAttribute(this, key + "_mod")
+					
+					if (0 > mod or mod > 0) {
+					
+						list add (s_list, val + ": " + ToString(mod))
+					}
+				}
+			}
+			
+			if (ListCount(s_list) > 0) {
+				msg(" ")
+				
+				msg("*Needs:")
+				
+				foreach (s, s_list) {
+					msg("-" + s)
 				}
 			}
 		</look>
@@ -273,6 +407,11 @@
 			<!--Look-->
 			list add (verbs, "Look")
 			
+			<!--Eat-->
+			if (this.can_consume) {
+				list add (verbs, "Consume")
+			}
+			
 			<!--Sell-->
 			list add (verbs, "Sell")
 			
@@ -290,6 +429,11 @@
 					if (ListContains(this.inventoryverbs, "Mine")) {
 						list remove(this.inventoryverbs, "Mine")
 					}
+					
+					<!--Fish-->
+					if (ListContains(this.inventoryverbs, "Fish")) {
+						list remove(this.inventoryverbs, "Fish")
+					}
 				}
 				
 				else {
@@ -301,6 +445,11 @@
 					<!--Mine-->
 					if (this.can_mine) {
 						list add (verbs, "Mine")
+					}
+					
+					<!--Fish-->
+					if (this.can_fish) {
+						list add (verbs, "Fish")
 					}
 				
 					list add (verbs, "Unequip")
@@ -380,6 +529,14 @@
 		<mineral_chance type="int">100</mineral_chance>
 	</type>
 	
+	<type name="Tool">
+		<inherit name="Item" />
+		
+		<has_material type="boolean">true</has_material>
+		
+		<material type="object">None</material>
+	</type>
+	
 	<type name="Trait">
 	</type>
 	
@@ -395,8 +552,9 @@
 	
 	<type name="Role">
 		<items type="dictionary" />
+		<stats type="stringlist" />
 		
-		<max type="int">10</max>
+		<max type="int">50</max>
 		
 		<add_items type="script">
 			foreach (key, this.items) {
@@ -408,6 +566,20 @@
 				}
 			}
 		</add_items>
+		
+		<add_stats type="script">
+			max = 10
+			
+			if (not DoesInherit(entity, "editor_player")) {
+				max = 100 
+			}
+			
+			foreach (attr, this.stats) {
+				mod = GetRandomInt(0, max)
+				
+				do(entity, "mod_stat_lvl", QuickParams("attr", attr, "mod", mod))
+			}
+		</add_stats>
 		
 		<add_loc_inventory type="script" />
 		

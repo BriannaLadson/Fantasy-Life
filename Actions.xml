@@ -65,6 +65,92 @@
 		return  (success)
 	</function>
 	
+	<function name="Fish_Action" parameters="entity, pole" type="boolean">
+		parent = entity.parent
+		
+		success = true
+		
+		<!--Get Hand Stat Lvl-->
+			bps = Get_All_BPs(entity)
+		
+			hand = Get_Dict_By_Key_Val(bps, "equip_item", pole)
+		
+			hand_stat = DictionaryItem(hand, "hand_stat")
+		
+			hand_stat_lvl = GetAttribute(entity, hand_stat + "_lvl")
+			
+		<!--parent.water-->
+		if (RandomChance(parent.water)) {
+			<!--Get Fishing Lvl-->
+			fishing_lvl = GetAttribute(entity, "fishing_lvl")
+			
+			<!--Avg.-->
+			avg = (hand_stat_lvl + fishing_lvl) / 2
+			
+			<!--Success-->
+			success = Get_Success(avg)
+		}
+		
+		else {
+			success = false
+		}
+		
+		if (success) {
+			do(Fish, "generate", QuickParams("parent", entity))
+		}
+		
+		<!--Fishing Pole Degradation-->
+		do(pole, "mod_durability", QuickParams("mod", -1))
+		
+		<!--XP-->
+		Give_XP(entity, "fishing")
+		Give_XP(entity, hand_stat)	
+		
+		<!--Return-->
+		return (success)
+	</function>
+	
+	<function name="Forage_Action" parameters="entity" type="boolean">
+		parent = entity.parent
+		
+		fertility = parent.fertility
+		
+		success = true
+		
+		<!--parent.fertility-->
+		if (RandomChance(fertility)) {
+			<!--entity.foraging-->
+			foraging_lvl = entity.foraging_lvl
+			
+			<!--Success-->
+			success = Get_Success(foraging_lvl)
+		}
+		
+		else {
+			success = false
+		}
+		
+		if (success) {
+			food = FilterByAttribute(game.food, "can_forage", true)
+			
+			if (ListCount(food) = 0) {
+				success = false
+			}
+			
+			else {
+				food = PickOneObject(food)
+				
+				do(food, "generate", QuickParams("parent", entity))
+			}
+		}
+		
+		<!--XP-->
+		Give_XP(entity, "foraging")
+		
+		<!--Return-->
+		return (success)
+	</function>
+	
 	<function name="Mine_Action" parameters="entity, pickaxe" type="boolean">
 		parent = entity.parent
 		

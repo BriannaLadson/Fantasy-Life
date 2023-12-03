@@ -19,6 +19,10 @@
 			</item>
 		</items>
 		
+		<stats type="stringlist">
+			<value>blacksmithing</value>
+		</stats>
+		
 		<add_loc_inventory type="script">
 			blacksmiths = DictionaryItem(loc.roles, "Blacksmith")
 			
@@ -51,7 +55,67 @@
 			}
 		</add_loc_inventory>
 		
-		<products type="objectlist">Iron_Carpenter_Workshop;Iron_Blacksmith_Workshop;Iron_Axe;Iron_Pickaxe;Iron_Smelter_Workshop</products>
+		<products type="objectlist">Iron_Fishing_Pole;Iron_Carpenter_Workshop;Iron_Blacksmith_Workshop;Iron_Axe;Iron_Pickaxe;Iron_Smelter_Workshop</products>
+	</object>
+	
+	<object name="Brewer">
+		<inherit name="Role" />
+		
+		<alias>Brewer</alias>
+		
+		<items type="dictionary">
+			<item>
+				<key>Bone_Still_Workshop</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Grain</key>
+				<value type="int">3</value>
+			</item>
+		</items>
+		
+		<stats type="stringlist">
+			<value>brewing</value>
+		</stats>
+		
+		<add_loc_inventory type="script">
+			brewers = DictionaryItem(loc.roles, "Brewer")
+			
+			for (i, 1, brewers) {
+				product = PickOneObject(this.products)
+				
+				<!--Validate Product Reactants-->
+				valid = true
+				
+				foreach (reagent, product.reagents) {
+					min = DictionaryItem(product.reagents, reagent)
+					
+					num = Get_Loc_Inventory_Num(loc, reagent)
+					
+					if (min > num) {
+						valid = false
+						
+						do(loc, "mod_inventory_value", QuickParams("item_name", reagent, "mod", min - num))
+					}
+				}
+				
+				<!--Add Product / Remove Reactants If Valid-->
+				if (valid) {
+					foreach (reagent, product.reagents) {
+						min = DictionaryItem(product.reagents, reagent)
+						
+						do(loc, "mod_inventory", QuickParams("item_name", reagent, "mod", min * -1))
+						
+						do(loc, "mod_inventory_value", QuickParams("item_name", reagent, "mod", min * -1))
+					}
+					
+					do(loc, "mod_inventory", QuickParams("item_name", product.name, "mod", 1))
+					do(loc, "mod_inventory_value", QuickParams("item_name", product.name, "mod", -1))
+				}
+			}
+		</add_loc_inventory>
+		
+		<products type="objectlist">Beer;Mead;Rum;Whiskey;Wine</products>
 	</object>
 	
 	<object name="Carpenter">
@@ -69,6 +133,10 @@
 				<value type="int">3</value>
 			</item>
 		</items>
+		
+		<stats type="stringlist">
+			<value>carpentry</value>
+		</stats>
 		
 		<add_loc_inventory type="script">
 			carpenters = DictionaryItem(loc.roles, "Carpenter")
@@ -94,7 +162,75 @@
 			}
 		</add_loc_inventory>
 		
-		<products type="objectlist">Wooden_Carpenter_Workshop;Wooden_Axe;Wooden_Pickaxe;Wooden_Smelter_Workshop;Wooden_Blacksmith_Workshop</products>
+		<products type="objectlist">Wooden_Fishing_Pole;Wooden_Carpenter_Workshop;Wooden_Axe;Wooden_Pickaxe;Wooden_Smelter_Workshop;Wooden_Blacksmith_Workshop</products>
+	</object>
+	
+	<object name="Fisher">
+		<inherit name="Role" />
+		
+		<alias>Fisher</alias>
+		
+		<stats type="stringlist">
+			<value>fishing</value>
+		</stats>
+		
+		<items type="dictionary">
+			<item>
+				<key>Bone_Fishing_Pole</key>
+				<value type="int">1</value>
+			</item>
+		</items>
+		
+		<add_loc_inventory type="script">
+			region = loc.parent
+			water_chance = region.water
+			
+			fishers = DictionaryItem(loc.roles, "Fisher")
+			
+			for (i, 1, fishers) {
+				if (RandomChance(water_chance)) {
+					do(loc, "mod_inventory", QuickParams("item_name", "Fish", "mod", 1))
+				}
+			}
+		</add_loc_inventory>
+	</object>
+	
+	<object name="Forager">
+		<inherit name="Role" />
+		
+		<alias>Forager</alias>
+		
+		<stats type="stringlist">
+			<value>foraging</value>
+		</stats>
+		
+		<add_loc_inventory type="script">
+			region = loc.parent
+			fertility_chance = region.fertility
+			water_chance = region.water
+			
+			foragers = DictionaryItem(loc.roles, "Forager")
+			
+			for (i, 1, foragers) {
+				if (RandomChance(50)) {
+					products = Filter_By_Attr_Min(this.products, "hunger_mod", 1)
+					
+					if (RandomChance(fertility_chance)) {
+						product = PickOneObject(products)
+					
+						do(loc, "mod_inventory", QuickParams("item_name", product.name, "mod", 1))
+					}
+				}
+				
+				else {
+					if (RandomChance(water_chance)) {
+						do(loc, "mod_inventory", QuickParams("item_name", "Water", "mod", 1))
+					}
+				}
+			}
+		</add_loc_inventory>
+		
+		<products type="objectlist">Fruit;Grain;Honey;Sugarcane;Vegetable;</products>
 	</object>
 	
 	<object name="Miner">
@@ -108,6 +244,10 @@
 				<value type="int">1</value>
 			</item>
 		</items>
+		
+		<stats type="stringlist">
+			<value>mining</value>
+		</stats>
 		
 		<add_loc_inventory type="script">
 			region = loc.parent
@@ -151,6 +291,10 @@
 				<value type="int">3</value>
 			</item>
 		</items>
+		
+		<stats type="stringlist">
+			<value>smelting</value>
+		</stats>
 		
 		<add_loc_inventory type="script">
 			smelters = DictionaryItem(loc.roles, "Smelter")
@@ -197,6 +341,10 @@
 				<value type="int">1</value>
 			</item>
 		</items>
+		
+		<stats type="stringlist">
+			<value>wood_cutting</value>
+		</stats>
 		
 		<add_loc_inventory type="script">
 			region = loc.parent

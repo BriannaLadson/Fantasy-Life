@@ -103,7 +103,7 @@
 
 	<function name="Decay_Needs">
 		foreach (entity, game.entities) {
-			foreach (key, game.need_stats) {
+			foreach (key, game.needs) {
 				if (HasAttribute(entity, key + "_decay")) {
 					decay = GetAttribute(entity, key + "_decay")
 					
@@ -114,19 +114,69 @@
 						
 						set(entity, key + "_cur", cur)
 						
-						if (0 >= cur) {
-							death_type = DictionaryItem(game.death_types, key)
-							
-							entity.death_type = death_type
+						
+						if (0 >= cur and entity.death_type = "None") {
+							if (DictionaryContains(game.death_types, key)) {
+								death_type = DictionaryItem(game.death_types, key)
 								
-							list add (game.dead, entity.name)
+								entity.death_type = death_type
+								
+								entity.dead = true
+								
+								list add (game.dead, entity)
+							}
+						}
+						
+						if (0 >= cur and key = "energy") {
+							entity.conscious = false
 						}
 					}
 				}
 			}
 		}
 		
-		do(game, "destroy_dead")
+		<!--do(game, "destroy_dead")-->
+	</function>
+	
+	<function name="Handle_Unconscious">
+		foreach (entity, game.entities) {
+			if (HasAttribute(entity, "conscious") and not entity.conscious) {
+				mod = (entity.energy_decay * -1) * 3
+				
+				do(entity, "mod_need", QuickParams("attr", "energy", "mod", mod))
+				
+				<!--Wake Entity if they're about to die from other needs-->
+				conscious = false
+			
+				foreach (key, game.needs) {
+					if (not key = "energy") {
+						decay = GetAttribute(entity, key + "_decay")
+					
+						if (not decay = 0) {
+							cur = GetAttribute(entity, key + "_cur")
+					
+							if ((decay * -1) * 3 >= cur) {
+								conscious = true
+							}
+						}
+					}
+				}
+				
+				<!--Wake Entity if they're energy is full-->
+				if (entity.energy_cur >= entity.energy_max) {
+					conscious = true
+				}
+			
+				entity.conscious = conscious
+			}
+		}
+	</function>
+	
+	<function name="Hourly_Update">
+		if (game.minute_num = 0) {
+			Handle_Unconscious()
+			Decay_Needs()
+		}
 	</function>
 
 	<function name="Midnight_Update">

@@ -23,6 +23,7 @@
 			
 			do(player, "add_creature_type", QuickParams("creature_type", race))
 			do(player, "add_bps")
+			do(player, "set_needs_decay")
 			
 			Choose_Handedness()
 		}
@@ -50,6 +51,11 @@
 			
 			do(role, "add_items", QuickParams("entity", player))
 			
+			if (game.levelling) {
+				do(role, "add_stats", QuickParams("entity", player))
+			}
+			
+			list add (game.entities, player)
 			EnableTurnScript(TakeTurn_TS)
 			Random_Region_Parent(player)
 		}
@@ -66,6 +72,10 @@
 			
 			xp = GetRandomInt(1, max)
 			
+			if (RandomChance(10)) {
+				xp = xp * 10
+			}
+			
 			do(entity, "mod_stat_xp", QuickParams("attr", attr, "mod", xp))
 		}
 	</function>
@@ -79,6 +89,26 @@
 		
 		<!--Gold-->
 		DictionaryAdd(status, "gold", "Gold: " + ToString(player.gold))
+		
+		<!--Needs-->
+		obj_name = ListItem(game.status_pane_menus, game.status_pane_idx)
+		if (not obj_name = "Needs") {
+			<!--Space-->
+			DictionaryAdd(status, "space", " ")
+			
+			foreach (key, game.needs) {
+				decay = GetAttribute(player, key + "_decay")
+				
+				if (0 > decay) {
+				
+					val = DictionaryItem(game.needs, key)
+					cur = GetAttribute(player, key + "_cur")
+					max = GetAttribute(player, key + "_max")
+				
+					DictionaryAdd(status, key, val + ": " + ToString(cur) + "/" + ToString(max))
+				}
+			}
+		}
 		
 		player.statusattributes = status
 	</function>

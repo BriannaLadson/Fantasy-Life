@@ -1,0 +1,23 @@
+<library>
+	<object name="Coal">
+		<inherit name="Mineral" />
+		
+		<alias>Coal</alias>
+		<main_alias>Coal</main_alias>
+		
+		<base_value type="int">2</base_value>
+		
+		<mineral_chance type="int">26</mineral_chance>
+	</object>
+	
+	<object name="Iron_Ore">
+		<inherit name="Mineral" />
+		
+		<alias>Iron Ore</alias>
+		<main_alias>Iron Ore</main_alias>
+		
+		<base_value type="int">8</base_value>
+		
+		<mineral_chance type="int">8</mineral_chance>
+	</object>
+</library>

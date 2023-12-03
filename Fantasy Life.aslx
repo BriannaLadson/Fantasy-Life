@@ -18,13 +18,15 @@
   <include ref="Calendar.xml" />
   <include ref="Minerals.xml" />
   <include ref="Workshops.xml" />
+  <include ref="Food.xml" />
+  <include ref="Tools.xml" />
   <game name="Fantasy Life">
     <gameid>3b68be85-9773-4f8d-b339-afe44df4292f</gameid>
-    <version>11.14.23</version>
+    <version>12.02.23</version>
     <firstpublished>2023</firstpublished>
     <showtitle type="boolean">false</showtitle>
     <category>RPG</category>
-    <description><![CDATA[Create a life for yourself in a randomly generated fantasy world!<br/><br/>[Features]<br/>*Dynamic Economy: Each item's base value increases/decreases based on location and need. Item prices are updated daily at 12AM.<br/><br/>*Leveling Systems: The XP system allows the player to level up their skills by doing. The Point system allows the player to assign skill points to as needed.<br/><br/>*Races: Play as one of the 5 classic fantasy races.<br/><br/>*Roles: Choose a role that best fits your desired playstyle.<br/><br/>*Travel: Discover locations while traveling across the game world.<br/><br/>*World Generation: After entering some parameters, a new game world is generated for you to delve into.<br/><br/>[Races]<br/>*Dwarf<br/>*Elf<br/>*Goblin<br/>*Human<br/>*Orc<br/><br/>[Roles]<br/>*Blacksmith<br/>*Carpenter<br/>*Smelter<br/>*Miner<br/>*Wood Cutter]]></description>
+    <description><![CDATA[Create a life for yourself in a randomly generated fantasy world!<br/><br/>[Features]<br/>*Crafting: Use workshops to craft items.<br/><br/>*Dynamic Economy: Each item's base value increases/decreases based on location and need. Item prices are updated daily at 12AM.<br/><br/>*Leveling Systems: The XP system allows the player to level up their skills by doing. The Point system allows the player to assign skill points to as needed.<br/><br/>*Needs: Manage your needs or risk death!<br/><br/>*Races: Play as one of the 5 classic fantasy races.<br/><br/>*Roles: Choose a role that best fits your desired playstyle.<br/><br/>*Travel: Discover locations while traveling across the game world.<br/><br/>*World Generation: After entering some parameters, a new game world is generated for you to delve into.<br/><br/>[Races]<br/>*Dwarf<br/>*Elf<br/>*Goblin<br/>*Human<br/>*Orc<br/><br/>[Roles]<br/>*Blacksmith<br/>*Brewer<br/>*Carpenter<br/>*Fisher<br/>*Forager<br/>*Miner<br/>*Peasant<br/>*Smelter<br/>*Wood Cutter]]></description>
     <autodescription type="boolean">false</autodescription>
     <feature_annotations />
     <directions type="stringdictionary">
@@ -70,12 +72,18 @@
         <key>mineral</key>
         <value>Mineral</value>
       </item>
+      <item>
+        <key>water</key>
+        <value>Water</value>
+      </item>
     </region_stats>
     <status_pane_menus type="stringlist">
       <value>Actions</value>
       <value>Character_Sheet</value>
       <value>Health</value>
+      <value>Needs</value>
       <value>Stats</value>
+      <value>Help</value>
     </status_pane_menus>
     <attr name="status_pane_idx" type="int">0</attr>
     <customstatuspane />
@@ -85,8 +93,20 @@
         <value>Blacksmithing</value>
       </item>
       <item>
+        <key>brewing</key>
+        <value>Brewing</value>
+      </item>
+      <item>
         <key>carpentry</key>
         <value>Carpentry</value>
+      </item>
+      <item>
+        <key>fishing</key>
+        <value>Fishing</value>
+      </item>
+      <item>
+        <key>foraging</key>
+        <value>Foraging</value>
       </item>
       <item>
         <key>left_hand</key>
@@ -207,6 +227,38 @@
       <value type="string">31</value>
     </month_days>
     <debug type="boolean">false</debug>
+    <needs type="stringdictionary">
+      <item>
+        <key>alcohol</key>
+        <value>Alcohol</value>
+      </item>
+      <item>
+        <key>energy</key>
+        <value>Energy</value>
+      </item>
+      <item>
+        <key>hunger</key>
+        <value>Hunger</value>
+      </item>
+      <item>
+        <key>thirst</key>
+        <value>Thirst</value>
+      </item>
+    </needs>
+    <death_types type="stringdictionary">
+      <item>
+        <key>alcohol</key>
+        <value>Alcohol Dehydration</value>
+      </item>
+      <item>
+        <key>hunger</key>
+        <value>Starvation</value>
+      </item>
+      <item>
+        <key>thirst</key>
+        <value>Dehydration</value>
+      </item>
+    </death_types>
     <start type="script">
       player.parent = World_Settings
     </start>
@@ -222,18 +274,21 @@
     ]]></attr>
     <animals type="objectlist"></animals>
     <races type="objectlist">Dwarf; Elf; Goblin; Human; Orc</races>
-    <roles type="objectlist">Blacksmith; Carpenter; Miner; Peasant; Smelter; Wood_Cutter</roles>
+    <roles type="objectlist">Blacksmith; Brewer; Carpenter; Fisher; Forager; Miner; Peasant; Smelter; Wood_Cutter</roles>
     <materials type="objectlist">Bone; Wood; Stone; Iron</materials>
     <attr name="hand_traits" type="objectlist">Ambidextrous; Left_Handed; Right_Handed</attr>
     <factions type="objectlist"></factions>
     <locations type="objectlist"></locations>
-    <attr name="item_types" type="objectlist">Material; Mineral; Weapon; Workshop</attr>
+    <attr name="item_types" type="objectlist">Food; Material; Mineral; Tool; Weapon; Workshop</attr>
     <minerals type="objectlist">Coal; Stone; Iron_Ore</minerals>
+    <entities type="objectlist"></entities>
+    <dead type="objectlist"></dead>
+    <food type="objectlist">Fish; Fruit; Grain; Honey; Rum; Sugarcane; Vegetable; Water; Whiskey; Wine</food>
   </game>
   <object name="room">
     <inherit name="editor_room" />
     <isroom />
-    <attr name="implementation_notes"><![CDATA[[Release Goals (2)]<br/>*Role(s)<br/><br/><br/>*Feature(s)<br/>-Needs: Hunger, Thirst, Energy<br/>-Death: Starvation, Dehydration, Alcohol Poisoning<br/>-Player passes out when their energy is too low<br/><br/><br/>[Tasks]<br/>*Add Race Names (Dwarf - Sprituous)<br/>*Add Race Names (Elf - Abiding)<br/>*Add Race Names (Goblin - Dangerous)<br/>*Add Race Names (Human - Chief)<br/>*Add Race Names (Orc - Rampageous)<br/><br/><br/>*Take item durability into account when trading<br/><br/><br/>[Features]<br/>*Aging<br/>*Pets<br/>*Banking<br/>*Taxation<br/>*Disease System<br/>*Holidays<br/>*Weather<br/>*Events (Baby Shower, Funeral)<br/>*Traits<br/>-Beliefs: Can be changed through conversation and experiences<br/>-Personality<br/>*Throwing (Stat)<br/>*Religion<br/>*Blessings, Curses<br/>*Tournaments<br/>*Lunar Cycle<br/>*Werecreatures, Vampires, Mummies<br/>*Blood<br/>*Traps<br/>*Ice Skating<br/>*Fairy (Race)<br/>*Taxes<br/>*Uniforms<br/><br/>[Factions]<br/>*Civilization<br/>*Guild<br/>*Group<br/><br/>[Materials]<br/>*Bone<br/>*Wood<br/>*Stone<br/>*Metal<br/><br/>[Roles]<br/>*Wood Cutter: Cuts down trees for wood<br/>*Carpenter: Makes items out of wood<br/>*Miner: Mines for ore<br/>*Smelter: Smelts ore into metal bars<br/>*Metalsmith: Smelts metal bars into metal items<br/><br/>*Hunter: Kills  terrestial animals<br/>*Fisher: Catches aquatic animals<br/>*Butcher: Butcher's animal corpses<br/>*Cook: Cooks food<br/>*Baker<br/>*Forager: Forage for fruits, vegetables, and plants<br/>*Planter: Plants fruits, vegetables, and plants<br/>*Brewer: Brews fruits, and vegetables into alcohol<br/>*Water Carriers: <br/><br/>*Monster Slayer: Travels the world killing monsters for profit (!)<br/><br/>*Archer<br/>*Crossbowman<br/>*Axeman<br/><br/>*Banker<br/>*Caravaner<br/>*Trader<br/>*Treasure Hunter<br/>*Assassin<br/>*Bounty Hunter<br/>*Thief<br/>*Beast Master<br/>*Necromancer<br/>*Alchemist<br/>*Doctor<br/>*Courier<br/>*Diplomat<br/>*Pirate<br/>*Mercenary<br/>*Fence<br/><br/>[Traits]<br/>*Anti-Slavery<br/>*Pro-Slavery<br/>*Alcoholic<br/>*Cannabil<br/>*Changeling: Will swap their child our for another races child]]></attr>
+    <attr name="implementation_notes"><![CDATA[[Release Goals (2): Needs]<br/>*Description: Player must manage their needs or risk death. <br/><br/>*Role(s)<br/>-Planter<br/>-Hunter<br/>-Butcher<br/>-Cook<br/>-Baker<br/><br/><br/>*Feature(s)<br/>-Needs: Hunger, Thirst, Energy, Alcohol<br/>-Death: Starvation, Dehydration,  Alcohol Dehydration,<br/>-Player passes out when their energy is too low<br/><br/><br/>[Tasks]<br/>*Add Race Names (Dwarf - Sprituous)<br/>*Add Race Names (Elf - Abiding)<br/>*Add Race Names (Goblin - Dangerous)<br/>*Add Race Names (Human - Chief)<br/>*Add Race Names (Orc - Rampageous)<br/><br/>*When plantable items are used they produce seeds (Fruit, Vegetable, etc.)<br/><br/>*Add Blood Alcohol Level<br/>*Entities become drunk at certain B.A.L.<br/>*Entities die at certain B.A.L.<br/>*Locations must have enough food and water each day (3x citizen) or they will "leave"<br/>*Take item durability into account when trading<br/>*Add Strength: Determines melee damage and max encumbrance. Increase while moving with overloaded encumbrance.<br/>*Add Speed: Determines movement speed. Increases while moving with underloaded encumbrance<br/><br/><br/>[Features]<br/>*Aging<br/>*Pets<br/>*Banking<br/>*Taxation<br/>*Disease System<br/>*Holidays<br/>*Weather<br/>*Events (Baby Shower, Funeral)<br/>*Traits<br/>-Beliefs: Can be changed through conversation and experiences<br/>-Personality<br/>*Throwing (Stat)<br/>*Religion<br/>*Blessings, Curses<br/>*Tournaments<br/>*Lunar Cycle<br/>*Werecreatures, Vampires, Mummies<br/>*Blood<br/>*Traps<br/>*Ice Skating<br/>*Fairy (Race)<br/>*Taxes<br/>*Uniforms<br/><br/>[Factions]<br/>*Civilization<br/>*Guild<br/>*Group<br/><br/>[Materials]<br/>*Bone<br/>*Wood<br/>*Stone<br/>*Metal<br/><br/>[Roles]<br/>*Hunter: Kills  terrestial animals<br/>*Butcher: Butcher's animal corpses<br/>*Cook: Cooks food<br/>*Baker:<br/>*Planter: Plants fruits, vegetables, and plants<br/>*Brewer: Brews fruits, and vegetables into alcohol<br/><br/>*Monster Slayer: Travels the world killing monsters for profit (!)<br/><br/>*Archer<br/>*Crossbowman<br/>*Axeman<br/><br/>*Banker<br/>*Caravaner<br/>*Trader<br/>*Treasure Hunter<br/>*Assassin<br/>*Bounty Hunter<br/>*Thief<br/>*Beast Master<br/>*Necromancer<br/>*Alchemist<br/>*Doctor<br/>*Courier<br/>*Diplomat<br/>*Pirate<br/>*Mercenary<br/>*Fence<br/><br/>[Traits]<br/>*Anti-Slavery<br/>*Pro-Slavery<br/>*Alcoholic<br/>*Cannabil<br/>*Changeling: Will swap their child our for another races child]]></attr>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
@@ -356,6 +411,8 @@
         parent = player.parent
         html = html + "<table width=\"100%\">"
         if (parent.prototype = Region) {
+          // Forage
+          html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'Forage_Cmd')\">Forage</button></td></tr>"
           // Prospect
           html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'Prospect_Cmd')\">Prospect</button></td></tr>"
         }
@@ -369,9 +426,70 @@
         JS.setCustomStatus (html)
       ]]></attr>
     </object>
+    <object name="Custom_Status_Help">
+      <inherit name="editor_object" />
+      <attr name="menu_name">Help</attr>
+      <attr name="update_status" type="script"><![CDATA[
+        // Header
+        html = "<table width=\"100%\">"
+        html = html + Get_Menu_Header_HTML(html, this.menu_name)
+        html = html + "</table>"
+        html = html + "<hr>"
+        // Buttons
+        html = html + "<table width=\"100%\">"
+        // Debug
+        html = html + "<tr><td><button onclick=\"ASLEvent('Help', 'Debug')\">Debug</button></td></tr>"
+        // Prospect
+        html = html + "<tr><td><button onclick=\"ASLEvent('Help', 'Prospect')\">Prospect</button></td></tr>"
+        // Wait
+        html = html + "<tr><td><button onclick=\"ASLEvent('Help', 'Wait')\">Wait</button></td></tr>"
+        if (game.debug) {
+          html = html + "<hr>"
+          // Generate Item
+          html = html + "<tr><td><button onclick=\"ASLEvent('Help', 'Generate Item')\">Generate Item</button></td></tr>"
+        }
+        html = html + "</table>"
+        JS.setCustomStatus (html)
+      ]]></attr>
+    </object>
+    <object name="Custom_Status_Needs">
+      <inherit name="editor_object" />
+      <attr name="menu_name">Needs</attr>
+      <attr name="update_status" type="script"><![CDATA[
+        // Header
+        html = "<table width=\"100%\">"
+        html = html + Get_Menu_Header_HTML(html, this.menu_name)
+        html = html + "</table>"
+        html = html + "<hr>"
+        // Needs
+        html = html + "<table width=\"100%\">"
+        foreach (key, game.needs) {
+          decay = GetAttribute(player, key + "_decay")
+          if (not decay = 0) {
+            val = DictionaryItem(game.needs, key)
+            cur = GetAttribute(player, key + "_cur")
+            max = GetAttribute(player, key + "_max")
+            pad = 200 * (Int_To_Double(cur) / Int_To_Double(max))
+            html = html + "<tr>"
+            html = html + "<td>"
+            html = html + val + ": " + ToString(cur) + " / " + ToString(max)
+            html = html + "</td>"
+            html = html + "</tr>"
+            html = html + "<tr>"
+            html = html + "<td colspan=\"2\" style=\"border: thin solid;background:white;text-align:left;\">"
+            html = html + "<span style=\"background-color:black;padding-right:" + ToString(pad) + "px" + ";\"></span>"
+            html = html + "</td>"
+            html = html + "</tr>"
+          }
+        }
+        html = html + "</table>"
+        JS.setCustomStatus (html)
+      ]]></attr>
+    </object>
   </object>
   <command name="Prospect_Cmd">
     <pattern>prospect;Prospect</pattern>
+    <take_turn />
     <script>
       parent = player.parent
       if (not parent.prototype = Region) {
@@ -390,9 +508,17 @@
     <script>
       game.minute_num = game.minute_num + 1
       Update_Time
+      Hourly_Update
       Midnight_Update
       Update_Status
       Update_Custom_Status_Pane
+      if (ListContains(game.dead, player) and not player.parent = Unconscious_Room) {
+        player.parent = Death_Room
+      }
+      if (not player.conscious and not player.parent = Death_Room and not player.parent = Unconscious_Room) {
+        player.previous_parent = player.parent
+        player.parent = Unconscious_Room
+      }
     </script>
   </turnscript>
   <command name="Equip_Cmd">
@@ -822,6 +948,7 @@
               do (craft_obj, "generate", QuickParams("parent", player))
             }
             Give_XP (player, workshop.stat_attr)
+            do (workshop, "mod_durability", QuickParams("mod", -1))
           }
         }
       }
@@ -840,7 +967,7 @@
       }
     </script>
   </command>
-  <command name="Add_Location_Inventory_Cmd">
+  <command name="Add_Location_Inventory_Debug">
     <pattern>add loc inv</pattern>
     <script>
       if (not game.debug) {
@@ -852,6 +979,92 @@
         }
         else {
           do (player.parent, "add_inventory")
+        }
+      }
+    </script>
+  </command>
+  <command name="Forage_Cmd">
+    <pattern>forage;Forage</pattern>
+    <take_turn />
+    <script>
+      parent = player.parent
+      if (not parent.prototype = Region) {
+        msg ("You can only forage while in a Region!")
+      }
+      else {
+        success = Forage_Action(player)
+        if (not success) {
+          msg ("You didn't find anything while foraging!")
+        }
+        else {
+          msg ("You found something while foraging.")
+        }
+      }
+    </script>
+  </command>
+  <command name="Consume_Cmd">
+    <pattern>consume #object#;Consume #object#</pattern>
+    <script>
+      if (not ListContains(object.inventoryverbs, "Consume")) {
+        msg ("You can't consume that!")
+      }
+      else {
+        msg ("You consume the " + object.alias + ".")
+        if (object.is_equipped) {
+          do (Unequip_Cmd, "script", QuickParams("object", object))
+        }
+        do (player, "consume", QuickParams("item", object))
+      }
+    </script>
+  </command>
+  <command name="Generate_Item_Debug">
+    <pattern>generate #text#; Generate #text#</pattern>
+    <script>
+      if (not game.debug) {
+        msg ("You must enable debug mode!")
+      }
+      else {
+        obj = GetObject(text)
+        do (obj, "generate", QuickParams("parent", player))
+      }
+    </script>
+  </command>
+  <command name="Set_Need_Decay_Debug">
+    <pattern>need decay #text#;Need Decay #text#</pattern>
+    <script>
+      if (not game.debug) {
+        msg ("You must enable debug mode!")
+      }
+      else {
+        if (not IsInt(text)) {
+          msg ("You must enter an integer!")
+        }
+        else {
+          decay = ToInt(text)
+          do (player, "set_need_decay", QuickParams("attr", "energy", "decay", decay))
+        }
+      }
+    </script>
+  </command>
+  <command name="Fish_Cmd">
+    <pattern>fish #object#;Fish #object#</pattern>
+    <script>
+      if (not ListContains(object.inventoryverbs, "Fish")) {
+        msg ("You can't fish with that!")
+      }
+      else {
+        parent = player.parent
+        if (not parent.prototype = Region) {
+          msg ("You can only fish while in a Region!")
+        }
+        else {
+          success = Fish_Action(player, object)
+          if (not success) {
+            msg ("You didn't catch any fish!")
+          }
+          else {
+            msg ("You caught a fish.")
+          }
         }
       }
     </script>
@@ -879,6 +1092,9 @@
   <function name="Process_Cmd" parameters="s">
     obj = GetObject(s)
     do (obj, "script")
+    if (HasAttribute(obj, "take_turn")) {
+      do (TakeTurn_TS, "script")
+    }
     Update_Custom_Status_Pane
   </function>
   <function name="Update_Custom_Status_Pane">
@@ -893,5 +1109,29 @@
   <function name="Process_Dec_Stat" parameters="attr">
     do (player, "mod_stat_lvl", QuickParams("attr", attr, "mod", -1))
     do (Custom_Status_Stats, "update_status")
+  </function>
+  <function name="Help" parameters="s">
+    switch (s) {
+      case ("Wait") {
+        msg ("*Wait")
+        msg ("-Pattern: wait #text#, Wait #text#")
+        msg ("-Use to wait a certain amount of turns.")
+      }
+      case ("Prospect") {
+        msg ("*Prospect")
+        msg ("-Pattern: prospect, Prospect")
+        msg ("-Use while in a Region to see its stats.")
+      }
+      case ("Debug") {
+        msg ("*Debug")
+        msg ("-Pattern: debug, Debug")
+        msg ("-Use to enable debug mode in order to use certain commands.")
+      }
+      case ("Generate Item") {
+        msg ("*Generate Item (Debug)")
+        msg ("-Pattern: generate #text#, Generate #text#")
+        msg ("-Use to generate an item for the player.")
+      }
+    }
   </function>
 </asl>

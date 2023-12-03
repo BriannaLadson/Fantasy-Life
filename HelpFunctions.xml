@@ -9,6 +9,22 @@
 		return (integer)
 	</function>
 	
+	<function name="Filter_By_Attr_Min" parameters="input, attr, min" type="objectlist">
+		output = NewObjectList()
+		
+		foreach (i, input) {
+			if (HasAttribute(i, attr)) {
+				val = GetAttribute(i, attr)
+				
+				if (val >= min) {
+					list add (output, i)
+				}
+			}
+		}
+		
+		return (output)
+	</function>
+	
 	<function name="Get_Dict_By_Key_Val" parameters="dicts, key, val" type="dictionary">
 		output = NewDictionary()
 		

@@ -8,6 +8,10 @@
 		
 		<body_type type="object">Humanoid</body_type>
 		
+		<energy_decay type="int">-2</energy_decay>
+		<hunger_decay type="int">-2</hunger_decay>
+		<thirst_decay type="int">0</thirst_decay>
+		
 		<faction_prefixes type="stringlist">
 			<value>Mountainous</value>
 			<value>Hilly</value>
@@ -127,6 +131,11 @@
 		<weight type="int">139</weight>
 		
 		<body_type type="object">Humanoid</body_type>
+		
+		<alcohol_decay type="int">0</alcohol_decay>
+		<energy_decay type="int">-3</energy_decay>
+		<hunger_decay type="int">-3</hunger_decay>
+		<thirst_decay type="int">-3</thirst_decay>
 		
 		<faction_prefixes type="stringlist">
 			<value>Immortal</value>
@@ -252,6 +261,11 @@
 		
 		<body_type type="object">Humanoid</body_type>
 		
+		<alcohol_decay type="int">0</alcohol_decay>
+		<energy_decay type="int">-1</energy_decay>
+		<hunger_decay type="int">-1</hunger_decay>
+		<thirst_decay type="int">-1</thirst_decay>
+		
 		<faction_prefixes type="stringlist">
 			<value>Mischievous</value>
 			<value>Devilish</value>
@@ -326,6 +340,8 @@
 		<weight type="int">185</weight>
 		
 		<body_type type="object">Humanoid</body_type>
+		
+		<alcohol_decay type="int">0</alcohol_decay>
 		
 		<faction_prefixes type="stringlist">
 			<value>Great</value>
@@ -410,6 +426,11 @@
 		<weight type="int">231</weight>
 		
 		<body_type type="object">Humanoid</body_type>
+		
+		<alcohol_decay type="int">0</alcohol_decay>
+		<energy_decay type="int">-5</energy_decay>
+		<hunger_decay type="int">-5</hunger_decay>
+		<thirst_decay type="int">-5</thirst_decay>
 		
 		<faction_prefixes type="stringlist">
 			<value>Chaotic</value>

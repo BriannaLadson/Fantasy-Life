@@ -5,7 +5,7 @@
 		
 		<stat_attr type="string">blacksmithing</stat_attr>
 		
-		<products type="objectlist">Iron_Axe;Iron_Blacksmith_Workshop;Iron_Smelter_Workshop;Iron_Pickaxe</products>
+		<products type="objectlist">Iron_Fishing_Pole;Iron_Axe;Iron_Blacksmith_Workshop;Iron_Smelter_Workshop;Iron_Pickaxe;Iron_Carpenter_Workshop;Iron_Still_Workshop</products>
 	</type>
 	
 	<type name="Carpenter_Workshop">
@@ -13,7 +13,7 @@
 		
 		<stat_attr type="string">carpentry</stat_attr>
 		
-		<products type="objectlist">Wooden_Carpenter_Workshop;Wooden_Blacksmith_Workshop;Wooden_Smelter_Workshop;Wooden_Axe;Wooden_Pickaxe</products>
+		<products type="objectlist">Wooden_Fishing_Pole;Wooden_Carpenter_Workshop;Wooden_Blacksmith_Workshop;Wooden_Smelter_Workshop;Wooden_Axe;Wooden_Pickaxe;Wooden_Still_Workshop</products>
 	</type>
 	
 	<type name="Smelter_Workshop">
@@ -21,6 +21,14 @@
 		<products type="objectlist">Iron</products>
 		
 		<stat_attr type="string">smelting</stat_attr>
+	</type>
+	
+	<type name="Still_Workshop">
+		<inherit name="Workshop" />
+		
+		<products type="objectlist">Beer;Mead;Rum;Whiskey;Wine</products>
+		
+		<stat_attr type="string">brewing</stat_attr>
 	</type>
 	
 	<!--Blacksmith Workshop-->
@@ -195,6 +203,69 @@
 		
 		<alias>Iron Smelter</alias>
 		<main_alias>Iron Smelter</main_alias>
+		
+		<material type="object">Iron</material>
+		
+		<base_value type="int">100</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Coal</key>
+				<value type="int">1</value>
+			</item>
+			<item>
+				<key>Iron</key>
+				<value type="int">10</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<!--Still Workshop-->
+	<object name="Bone_Still_Workshop">
+		<inherit name="Still_Workshop" />
+		
+		<alias>Bone Still</alias>
+		<main_alias>Bone Still</main_alias>
+		
+		<material type="object">Bone</material>
+		
+		<base_value type="int">10</base_value>
+	</object>
+	
+	<object name="Wooden_Still_Workshop">
+		<inherit name="Smelter_Workshop" />
+		
+		<alias>Wooden Still</alias>
+		<main_alias>Wooden Still</main_alias>
+		
+		<material type="object">Wood</material>
+		
+		<base_value type="int">30</base_value>
+		
+		<reagents type="dictionary">
+			<item>
+				<key>Wood</key>
+				<value type="int">10</value>
+			</item>
+		</reagents>
+	</object>
+	
+	<object name="Stone_Still_Workshop">
+		<inherit name="Still_Workshop" />
+		
+		<alias>Stone Still</alias>
+		<main_alias>Stone Still</main_alias>
+		
+		<material type="object">Stone</material>
+		
+		<base_value type="int">40</base_value>
+	</object>
+	
+	<object name="Iron_Still_Workshop">
+		<inherit name="Still_Workshop" />
+		
+		<alias>Iron Still</alias>
+		<main_alias>Iron Still</main_alias>
 		
 		<material type="object">Iron</material>
 		

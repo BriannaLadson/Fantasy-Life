@@ -84,6 +84,20 @@
 		}
 	</function>
 	
+	<function name="Get_Loc_Inventory_Num" parameters="loc, item_name" type="int">
+		output = 0
+		
+		if (not DictionaryContains(loc.inventory, item_name)) {
+			DictionaryAdd(loc.inventory, item_name, 0)
+		}
+		
+		else {
+			output = DictionaryItem(loc.inventory, item_name)
+		}
+		
+		return (output)
+	</function>
+	
 	<!--Rooms-->
 	<object name="Region">
 		<inherit name="TA_Room" />
@@ -91,6 +105,16 @@
 		<location type="object">None</location>
 		
 		<enter type="script">
+			turns = 60
+			
+			if (player.previous_parent = Unconscious_Room) {
+				turns = 1
+			}
+			
+			for (i, 1, turns) {
+				do(TakeTurn_TS, "script")
+			}
+			
 			foreach (key, game.directions) {
 				coors = DictionaryItem(game.directions, key)
 				
@@ -156,6 +180,10 @@
 				<value type="int">0</value>
 			</item>
 			<item>
+				<key>Fruit</key>
+				<value type="int">0</value>
+			</item>
+			<item>
 				<key>Iron_Ore</key>
 				<value type="int">0</value>
 			</item>
@@ -168,6 +196,10 @@
 		<inventory_value type="dictionary">
 			<item>
 				<key>Coal</key>
+				<value type="int">0</value>
+			</item>
+			<item>
+				<key>Fruit</key>
 				<value type="int">0</value>
 			</item>
 			<item>
@@ -285,6 +317,52 @@
 			do(player, "set")
 			
 			Choose_Leveling()
+		</enter>
+	</object>
+	
+	<object name="Death_Room">
+		<inherit name="TA_Room" />
+		
+		<alias>Death</alias>
+		
+		<enter type="script">
+			ClearScreen()
+			
+			if (ListContains(game.entities, player)) {
+				list remove (game.entities, player)
+			}
+			if (ListContains(game.dead, player)) {
+				list remove(game.dead, player)
+			}
+			DisableTurnScript(TakeTurn_TS)
+			
+			msg("You died of " + player.death_type + "!")
+			
+			wait {
+				player.parent = Character_Creation
+			}
+		</enter>
+	</object>
+	
+	<object name="Unconscious_Room">
+		<inherit name="TA_Room" />
+		
+		<alias>Unconscious</alias>
+		
+		<enter type="script">
+			ClearScreen()
+			
+			DisableTurnScript(TakeTurn_TS)
+			
+			msg("You become unconscious!")
+			
+			while (not player.conscious) {
+				do(TakeTurn_TS, "script")
+			}
+			
+			msg("You awaken.")
+			
+			player.parent = player.previous_parent
 		</enter>
 	</object>
 	

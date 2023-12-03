@@ -1,0 +1,60 @@
+<library>
+	<!--Fishing Pole-->
+	<object name="Bone_Fishing_Pole">
+		<inherit name="Tool" />
+		
+		<alias>Bone Fishing Pole</alias>
+		<main_alias>Bone Fishing Pole</main_alias>
+		
+		<units type="int">1</units>
+		
+		<material type="object">Bone</material>
+		
+		<can_fish type="boolean">true</can_fish>
+	</object>
+	
+	<object name="Wooden_Fishing_Pole">
+		<inherit name="Tool" />
+		
+		<alias>Wooden Fishing Pole</alias>
+		<main_alias>Wooden Fishing Pole</main_alias>
+		
+		<units type="int">1</units>
+		
+		<material type="object">Wood</material>
+		
+		<can_fish type="boolean">true</can_fish>
+		
+		<base_value type="int">9</base_value>
+	</object>
+	
+	<object name="Stone_Fishing_Pole">
+		<inherit name="Tool" />
+		
+		<alias>Stone Fishing Pole</alias>
+		<main_alias>Stone Fishing Pole</main_alias>
+		
+		<units type="int">1</units>
+		
+		<material type="object">Stone</material>
+		
+		<can_fish type="boolean">true</can_fish>
+		
+		<base_value type="int">12</base_value>
+	</object>
+	
+	<object name="Iron_Fishing_Pole">
+		<inherit name="Tool" />
+		
+		<alias>Iron Fishing Pole</alias>
+		<main_alias>Iron Fishing Pole</main_alias>
+		
+		<units type="int">1</units>
+		
+		<material type="object">Iron</material>
+		
+		<can_fish type="boolean">true</can_fish>
+		
+		<base_value type="int">30</base_value>
+	</object>
+</library>
