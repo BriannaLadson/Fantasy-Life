@@ -1,5 +1,35 @@
 <library>
-	<object name="None" />
+	<object name="None">
+		<alias>None</alias>
+	</object>
+	
+	<function name="Destroy_Objs" parameters="objs">
+		names = NewStringList()
+		
+		foreach (obj, objs) {
+			list add (names, obj.name)
+		}
+		
+		foreach (name, names) {
+			destroy(name)
+		}
+	</function>
+	
+	<function name="Destroy_Objs_Num" parameters="objs, num">
+		names = NewStringList()
+		
+		for (i, 1, num) {
+			idx = i - 1
+			
+			obj = ListItem(objs, idx)
+			
+			list add (names, obj.name)
+		}
+		
+		foreach (name, names) {
+			destroy(name)
+		}
+	</function>
 	
 	<function name="Double_To_Int" parameters="double" type="int">
 		string = ToString(double)

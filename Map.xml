@@ -63,6 +63,9 @@
 				DictionaryAdd(clone.roles, role.name, num)
 			}
 			
+			<!--Land Base Values-->
+			do(clone, "calc_land_base_values")
+			
 			<!--Starting Inventory-->
 			do(clone, "set_inventory")
 			
@@ -96,6 +99,16 @@
 		}
 		
 		return (output)
+	</function>
+	
+	<function name="Update_Farm_Lands">
+		foreach (location, game.locations) {
+			farm_lands = FilterByAttribute(location.buildings, "prototype", Farm_Land)
+			
+			foreach (farm_land, farm_lands) {
+				do(farm_land, "update")
+			}
+		}
 	</function>
 	
 	<!--Rooms-->
@@ -173,6 +186,10 @@
 		<is_capital type="boolean">false</is_capital>
 		
 		<gold type="int">0</gold>
+		
+		<farm_land_base_value type="int">0</farm_land_base_value>
+		
+		<buildings type="objectlist" />
 		
 		<inventory type="dictionary">
 			<item>
@@ -305,6 +322,144 @@
 			
 			this.gold = GetRandomInt(0, max)
 		</generate_gold>
+	
+		<calc_land_base_values type="script">
+			region = this.parent
+			
+			multiplier = 1
+			
+			if (this.is_capital) {
+				multiplier = 10
+			}
+			
+			this.farm_land_base_value = region.fertility * multiplier
+		</calc_land_base_values>
+	</object>
+
+	<object name="Farm_Land">
+		<inherit name="Building" />
+		
+		<size type="string">Small</size>
+		
+		<owners type="objectlist" />
+		
+		<can_plant type="boolean">true</can_plant>
+		
+		<seeds type="int">0</seeds>
+		
+		<seed_max type="int">25</seed_max>
+		
+		<water type="int">0</water>
+		
+		<seed type="object">None</seed>
+		
+		<harvest_plant type="object">None</harvest_plant>
+		<harvest_num type="int">0</harvest_num>
+		
+		<generate type="script">
+			<!--Clone-->
+			clone = CloneObject(this)
+			
+			<!--Size & Alias-->
+			clone.size = size
+			
+			clone.alias = size + " Farm Land"
+			
+			switch (size) {
+				case ("Medium") {
+					clone.seed_max = 50
+				}
+				
+				case ("Large") {
+					clone.seed_max = 75
+				}
+				
+				case ("Extra Large") {
+					clone.seed_max = 100
+				}
+			}
+			
+			<!--Owners-->
+			list add (clone.owners, owner)
+			
+			<!--Verbs-->
+			do(clone, "set_dverbs")
+			
+			<!--Parent-->
+			clone.parent = parent
+			list add (parent.buildings, clone)
+			
+			<!--Fertility-->
+			clone.fertility = parent.parent.fertility
+		</generate>
+	
+		<plant_seed type="script">
+			this.seeds = this.seeds + 1
+			
+			this.seed = seed.prototype
+			
+			destroy(seed.name)
+			
+			do(this, "set_dverbs")
+			
+			do(this, "calc_growth_max")
+		</plant_seed>
+		
+		<remove_seeds type="script">
+			this.seeds = 0
+			this.seed = None
+			this.growing = false
+			this.water = 0
+			this.growth_cur = 0
+			
+			do(this, "set_dverbs")
+		</remove_seeds>
+	
+		<add_water type="script">
+			this.water = this.water + mod
+			
+			this.growing = true
+			
+			water_objs = GetDirectChildren(entity)
+			water_objs = FilterByAttribute(water_objs, "prototype", Water)
+			
+			Destroy_Objs_Num(water_objs, mod)
+			
+			do(this, "set_dverbs")
+		</add_water>
+		
+		<update type="script">
+			this.water = this.water - this.seeds
+			
+			<!--Determine farm growth-->
+			if (this.water >= 0) {
+				this.growth_cur = this.growth_cur + 1
+				
+				if (this.growth_cur >= this.growth_max) {
+					this.harvest_num = this.seeds
+					this.harvest_plant = this.seed.plant
+					
+					do(this, "remove_seeds")
+				}
+			}
+			
+			<!--Make water 0 if negative-->
+			if (0 > this.water) {
+				this.water = 0
+			}
+		</update>
+		
+		<harvest type="script">
+			
+		</harvest>
+		
+		<calc_growth_max type="script">
+			base = this.seed.growth_base
+			
+			percent = Round(Int_To_Double(base) * Int_To_Double((this.fertility * .01)))
+			
+			this.growth_max = base + (base - percent)
+		</calc_growth_max>
 	</object>
 
 	<!--Technical Rooms-->
@@ -362,6 +517,8 @@
 			
 			msg("You awaken.")
 			
+			
+			EnableTurnScript(TakeTurn_TS)
 			player.parent = player.previous_parent
 		</enter>
 	</object>

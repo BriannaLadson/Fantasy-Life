@@ -58,6 +58,7 @@
 			list add (game.entities, player)
 			EnableTurnScript(TakeTurn_TS)
 			Random_Region_Parent(player)
+			ClearScreen()
 		}
 	</function>
 
