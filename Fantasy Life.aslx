@@ -22,11 +22,11 @@
   <include ref="Tools.xml" />
   <game name="Fantasy Life">
     <gameid>3b68be85-9773-4f8d-b339-afe44df4292f</gameid>
-    <version>12.02.23</version>
+    <version>12.07.23</version>
     <firstpublished>2023</firstpublished>
     <showtitle type="boolean">false</showtitle>
     <category>RPG</category>
-    <description><![CDATA[Create a life for yourself in a randomly generated fantasy world!<br/><br/>[Features]<br/>*Crafting: Use workshops to craft items.<br/><br/>*Dynamic Economy: Each item's base value increases/decreases based on location and need. Item prices are updated daily at 12AM.<br/><br/>*Leveling Systems: The XP system allows the player to level up their skills by doing. The Point system allows the player to assign skill points to as needed.<br/><br/>*Needs: Manage your needs or risk death!<br/><br/>*Races: Play as one of the 5 classic fantasy races.<br/><br/>*Roles: Choose a role that best fits your desired playstyle.<br/><br/>*Travel: Discover locations while traveling across the game world.<br/><br/>*World Generation: After entering some parameters, a new game world is generated for you to delve into.<br/><br/>[Races]<br/>*Dwarf<br/>*Elf<br/>*Goblin<br/>*Human<br/>*Orc<br/><br/>[Roles]<br/>*Blacksmith<br/>*Brewer<br/>*Carpenter<br/>*Fisher<br/>*Forager<br/>*Miner<br/>*Peasant<br/>*Smelter<br/>*Wood Cutter]]></description>
+    <description><![CDATA[Create a life for yourself in a randomly generated fantasy world!<br/><br/>[Features]<br/>*Crafting: Use workshops to craft items.<br/><br/>*Dynamic Economy: Each item's base value increases/decreases based on location and need. Item prices are updated daily at 12AM.<br/><br/>*Leveling Systems: The XP system allows the player to level up their skills by doing. The Point system allows the player to assign skill points to as needed.<br/><br/>*Needs: Manage your needs or risk death!<br/><br/>*Races: Play as one of the 5 classic fantasy races.<br/><br/>*Roles: Choose a role that best fits your desired playstyle.<br/><br/>*Travel: Discover locations while traveling across the game world.<br/><br/>*World Generation: After entering some parameters, a new game world is generated for you to delve into.<br/><br/>[Races]<br/>*Dwarf<br/>*Elf<br/>*Goblin<br/>*Human<br/>*Orc<br/><br/>[Roles]<br/>*Blacksmith<br/>*Brewer<br/>*Carpenter<br/>*Fisher<br/>*Forager<br/>*Miner<br/>*Peasant<br/>*Planter<br/>*Smelter<br/>*Wood Cutter]]></description>
     <autodescription type="boolean">false</autodescription>
     <feature_annotations />
     <directions type="stringdictionary">
@@ -115,6 +115,10 @@
       <item>
         <key>mining</key>
         <value>Mining</value>
+      </item>
+      <item>
+        <key>planting</key>
+        <value>Planting</value>
       </item>
       <item>
         <key>smelting</key>
@@ -274,7 +278,7 @@
     ]]></attr>
     <animals type="objectlist"></animals>
     <races type="objectlist">Dwarf; Elf; Goblin; Human; Orc</races>
-    <roles type="objectlist">Blacksmith; Brewer; Carpenter; Fisher; Forager; Miner; Peasant; Smelter; Wood_Cutter</roles>
+    <roles type="objectlist">Blacksmith; Brewer; Carpenter; Fisher; Forager; Miner; Peasant; Planter; Smelter; Wood_Cutter</roles>
     <materials type="objectlist">Bone; Wood; Stone; Iron</materials>
     <attr name="hand_traits" type="objectlist">Ambidextrous; Left_Handed; Right_Handed</attr>
     <factions type="objectlist"></factions>
@@ -283,12 +287,13 @@
     <minerals type="objectlist">Coal; Stone; Iron_Ore</minerals>
     <entities type="objectlist"></entities>
     <dead type="objectlist"></dead>
-    <food type="objectlist">Fish; Fruit; Grain; Honey; Rum; Sugarcane; Vegetable; Water; Whiskey; Wine</food>
+    <food type="objectlist">Fish; Fruit; Fruit_Seed; Grain; Honey; Rum; Sugarcane; Vegetable; Vegetable_Seed; Water; Whiskey; Wine</food>
+    <plants type="objectlist">Fruit; Vegetable</plants>
   </game>
   <object name="room">
     <inherit name="editor_room" />
     <isroom />
-    <attr name="implementation_notes"><![CDATA[[Release Goals (2): Needs]<br/>*Description: Player must manage their needs or risk death. <br/><br/>*Role(s)<br/>-Planter<br/>-Hunter<br/>-Butcher<br/>-Cook<br/>-Baker<br/><br/><br/>*Feature(s)<br/>-Needs: Hunger, Thirst, Energy, Alcohol<br/>-Death: Starvation, Dehydration,  Alcohol Dehydration,<br/>-Player passes out when their energy is too low<br/><br/><br/>[Tasks]<br/>*Add Race Names (Dwarf - Sprituous)<br/>*Add Race Names (Elf - Abiding)<br/>*Add Race Names (Goblin - Dangerous)<br/>*Add Race Names (Human - Chief)<br/>*Add Race Names (Orc - Rampageous)<br/><br/>*When plantable items are used they produce seeds (Fruit, Vegetable, etc.)<br/><br/>*Add Blood Alcohol Level<br/>*Entities become drunk at certain B.A.L.<br/>*Entities die at certain B.A.L.<br/>*Locations must have enough food and water each day (3x citizen) or they will "leave"<br/>*Take item durability into account when trading<br/>*Add Strength: Determines melee damage and max encumbrance. Increase while moving with overloaded encumbrance.<br/>*Add Speed: Determines movement speed. Increases while moving with underloaded encumbrance<br/><br/><br/>[Features]<br/>*Aging<br/>*Pets<br/>*Banking<br/>*Taxation<br/>*Disease System<br/>*Holidays<br/>*Weather<br/>*Events (Baby Shower, Funeral)<br/>*Traits<br/>-Beliefs: Can be changed through conversation and experiences<br/>-Personality<br/>*Throwing (Stat)<br/>*Religion<br/>*Blessings, Curses<br/>*Tournaments<br/>*Lunar Cycle<br/>*Werecreatures, Vampires, Mummies<br/>*Blood<br/>*Traps<br/>*Ice Skating<br/>*Fairy (Race)<br/>*Taxes<br/>*Uniforms<br/><br/>[Factions]<br/>*Civilization<br/>*Guild<br/>*Group<br/><br/>[Materials]<br/>*Bone<br/>*Wood<br/>*Stone<br/>*Metal<br/><br/>[Roles]<br/>*Hunter: Kills  terrestial animals<br/>*Butcher: Butcher's animal corpses<br/>*Cook: Cooks food<br/>*Baker:<br/>*Planter: Plants fruits, vegetables, and plants<br/>*Brewer: Brews fruits, and vegetables into alcohol<br/><br/>*Monster Slayer: Travels the world killing monsters for profit (!)<br/><br/>*Archer<br/>*Crossbowman<br/>*Axeman<br/><br/>*Banker<br/>*Caravaner<br/>*Trader<br/>*Treasure Hunter<br/>*Assassin<br/>*Bounty Hunter<br/>*Thief<br/>*Beast Master<br/>*Necromancer<br/>*Alchemist<br/>*Doctor<br/>*Courier<br/>*Diplomat<br/>*Pirate<br/>*Mercenary<br/>*Fence<br/><br/>[Traits]<br/>*Anti-Slavery<br/>*Pro-Slavery<br/>*Alcoholic<br/>*Cannabil<br/>*Changeling: Will swap their child our for another races child]]></attr>
+    <attr name="implementation_notes"><![CDATA[[Release Goals (2): Needs]<br/>*Description: Player must manage their needs or risk death. <br/><br/>*Role(s)<br/>-Hunter<br/>-Butcher<br/>-Cook<br/>-Baker<br/><br/>*Feature(s)<br/>-Needs: Hunger, Thirst, Energy, Alcohol<br/>-Death: Starvation, Dehydration,  Alcohol Dehydration,<br/>-Player passes out when their energy is too low<br/><br/><br/>[Tasks]<br/>*Add Race Names (Dwarf - Sprituous)<br/>*Add Race Names (Elf - Abiding)<br/>*Add Race Names (Goblin - Dangerous)<br/>*Add Race Names (Human - Chief)<br/>*Add Race Names (Orc - Rampageous)<br/><br/><br/>*Add ability to sleep<br/>*Add beds<br/><br/>*Add Blood Alcohol Level<br/>*Entities become drunk at certain B.A.L.<br/>*Entities die at certain B.A.L.<br/>*Locations must have enough food and water each day (3x citizen) or they will "leave"<br/>*Take item durability into account when trading<br/>*Add Strength: Determines melee damage and max encumbrance. Increase while moving with overloaded encumbrance.<br/>*Add Speed: Determines movement speed. Increases while moving with underloaded encumbrance<br/>*Add ability to fertilize farm's to increase their fertility<br/><br/><br/>[Features]<br/>*Aging<br/>*Pets<br/>*Banking<br/>*Taxation<br/>-Land Taxes<br/><br/>*Disease System<br/>*Holidays<br/>*Weather<br/>*Events (Baby Shower, Funeral)<br/>*Traits<br/>-Beliefs: Can be changed through conversation and experiences<br/>-Personality<br/>*Throwing (Stat)<br/>*Religion<br/>*Blessings, Curses<br/>*Tournaments<br/>*Lunar Cycle<br/>*Werecreatures, Vampires, Mummies<br/>*Blood<br/>*Traps<br/>*Ice Skating<br/>*Fairy (Race)<br/>*Taxes<br/>*Uniforms<br/><br/>[Factions]<br/>*Civilization<br/>*Guild<br/>*Group<br/><br/>[Materials]<br/>*Bone<br/>*Wood<br/>*Stone<br/>*Metal<br/><br/>[Roles]<br/>*Hunter: Kills  terrestial animals<br/>*Butcher: Butcher's animal corpses<br/>*Cook: Cooks food<br/>*Baker:<br/>*Planter: Plants fruits, vegetables, and plants<br/>*Brewer: Brews fruits, and vegetables into alcohol<br/><br/>*Monster Slayer: Travels the world killing monsters for profit (!)<br/><br/>*Archer<br/>*Crossbowman<br/>*Axeman<br/><br/>*Banker<br/>*Caravaner<br/>*Trader<br/>*Treasure Hunter<br/>*Assassin<br/>*Bounty Hunter<br/>*Thief<br/>*Beast Master<br/>*Necromancer<br/>*Alchemist<br/>*Doctor<br/>*Courier<br/>*Diplomat<br/>*Pirate<br/>*Mercenary<br/>*Fence<br/><br/>[Traits]<br/>*Anti-Slavery<br/>*Pro-Slavery<br/>*Alcoholic<br/>*Cannabil<br/>*Changeling: Will swap their child our for another races child]]></attr>
     <object name="player">
       <inherit name="editor_object" />
       <inherit name="editor_player" />
@@ -417,6 +422,8 @@
           html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'Prospect_Cmd')\">Prospect</button></td></tr>"
         }
         else if (parent.prototype = Location) {
+          // Buy Land
+          html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'BuyLand_Cmd')\">Buy Land</button></td></tr>"
           // Census
           html = html + "<tr><td><button onclick=\"ASLEvent('Process_Cmd', 'Census_Cmd')\">Census</button></td></tr>"
           // Market
@@ -1066,6 +1073,208 @@
             msg ("You caught a fish.")
           }
         }
+      }
+    </script>
+  </command>
+  <command name="BuyLand_Cmd">
+    <pattern>buy land;Buy Land</pattern>
+    <script><![CDATA[
+      parent = player.parent
+      if (not parent.prototype = Location) {
+        msg ("You must be in a location to buy land!")
+      }
+      else {
+        options = Split("Farm")
+        ShowMenu ("What type of land do you want to buy?", options, true) {
+          if (result = "Farm") {
+            options = Split("Small;Medium;Large;Extra Large")
+            ShowMenu ("What size farm land do you want to buy?", options, true) {
+              parent = player.parent
+              player.size_target = result
+              multiplier = 1
+              if (result = "Medium") {
+                multiplier = 2
+              }
+              else if (result = "Large") {
+                multiplier = 3
+              }
+              else if (result = "Extra Large") {
+                multiplier = 4
+              }
+              value = parent.farm_land_base_value * multiplier
+              if (value > player.gold) {
+                msg ("The " + result + " Farm land is " + ToString(value) + " gold! You can't afford that!")
+              }
+              else {
+                player.value_target = value
+                ShowMenu ("Do you want to buy the " + result + " Farm land for " + value + " gold?", Split("Yes;No"), true) {
+                  parent = player.parent
+                  value = player.value_target
+                  size = player.size_target
+                  if (result = "Yes") {
+                    Transfer_Gold (player, parent, value)
+                    do (Farm_Land, "generate", QuickParams("owner", player, "size", size, "parent", parent))
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="Add_Gold_Debug">
+    <pattern>add gold #text#;Add Gold #text#</pattern>
+    <script><![CDATA[
+      if (not game.debug) {
+        msg ("You must enable debug mode!")
+      }
+      else {
+        if (not IsInt(text)) {
+          msg ("You must enter an integer!")
+        }
+        else {
+          gold = ToInt(text)
+          if (0 > gold) {
+            msg ("You must enter an integer that is greater than or equal to 0.")
+          }
+          else {
+            player.gold = player.gold + gold
+          }
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="Plant_Cmd">
+    <pattern>plant #object#;Plant #object#</pattern>
+    <script>
+      if (not ListContains(object.displayverbs, "Plant")) {
+        msg ("You can't plant seeds in that!")
+      }
+      else {
+        children = GetDirectChildren(player)
+        seeds = FilterByType(children, "Seed")
+        if (ListCount(seeds) = 0) {
+          msg ("You don't have any seeds to plant!")
+        }
+        else {
+          if (object.seeds = object.seed_max) {
+            msg ("You can't plant anymore seeds in the " + object.alias + "!")
+          }
+          else if (object.growing) {
+            msg ("The seeds are already growing!")
+          }
+          else {
+            player.building_target = object
+            if (object.seed = None) {
+              ShowMenu ("What seed do you want to plant?", seeds, true) {
+                seed = GetObject(result)
+                seed_name = seed.alias
+                building = player.building_target
+                success = Plant_Action(player, seed, building)
+                if (not success) {
+                  msg ("You failed to plant the " + seed_name + " in the " + building.alias + "!")
+                }
+                else {
+                  msg ("You plant the " + seed_name + " in the " + building.alias + "!")
+                }
+              }
+            }
+            else {
+              seeds = FilterByAttribute(seeds, "prototype", object.seed)
+              if (ListCount(seeds) = 0) {
+                msg ("You have to plant the same seed (" + object.seed.alias + ")! Or remove the seeds that are already planted first!")
+              }
+              else {
+                ShowMenu ("What seed do you want to plant?", seeds, true) {
+                  seed = GetObject(result)
+                  seed_name = seed.alias
+                  building = player.building_target
+                  success = Plant_Action(player, seed, building)
+                  if (not success) {
+                    msg ("You failed to plant the " + seed_name + " in the " + building.alias + "!")
+                  }
+                  else {
+                    msg ("You plant the " + seed_name + " in the " + building.alias + "!")
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    </script>
+  </command>
+  <command name="Water_Cmd">
+    <pattern>water #object#;Water #object#</pattern>
+    <script><![CDATA[
+      if (not ListContains(object.displayverbs, "Water")) {
+        msg ("You can't water that!")
+      }
+      else {
+        water = FilterByAttribute(GetDirectChildren(player), "prototype", Water)
+        if (ListCount(water) = 0) {
+          msg ("You don't have anything to water the " + object.alias + " with!")
+        }
+        else {
+          if (not object.growing) {
+            msg ("Once you water the " + object.alias + " you won't be able to plant any more seeds until harvest or until you remove already planted seeds.")
+            msg (" ")
+          }
+          max = ListCount(water)
+          msg ("How much water do you want to use? (Max: " + ToString(max) + ")")
+          get input {
+            if (not IsInt(result)) {
+              msg ("You can't use that amount of water!")
+            }
+            else {
+              water = ToInt(result)
+              if (0 >= water) {
+                msg ("You can't use that amount of water!")
+              }
+              else {
+                do (object, "add_water", QuickParams("entity", player, "mod", water))
+                msg ("You water the " + object.alias + ".")
+              }
+            }
+          }
+        }
+      }
+    ]]></script>
+  </command>
+  <command name="RemoveSeeds_Cmd">
+    <pattern>remove seeds #object#;Remove Seeds #object#</pattern>
+    <script>
+      if (not ListContains(object.displayverbs, "Remove Seeds")) {
+        msg ("You can't remove seeds from that!")
+      }
+      else {
+        player.building_target = object
+        ShowMenu ("Do you want to remove the seeds (" + object.seed.alias + ")? The seeds will be destroyed.", Split("Yes;No"), true) {
+          building = player.building_target
+          if (result = "Yes") {
+            msg ("You remove the seeds (" + building.seed.alias + ") from the " + building.alias + ".")
+            do (building, "remove_seeds")
+          }
+        }
+      }
+    </script>
+  </command>
+  <command name="Harvest_Cmd">
+    <pattern>harvest #object#;Harvest #object#</pattern>
+    <script>
+      if (not ListContains(object.displayverbs, "Harvest")) {
+        msg ("You can't harvest that!")
+      }
+      else {
+        success = Harvest_Action(player, object)
+        if (not success) {
+          msg ("You didn't harvest any plants from the " + object.alias + "!")
+        }
+        else {
+          msg ("You harvest some plants from the " + object.alias + ".")
+        }
+        do (object, "set_dverbs")
       }
     </script>
   </command>

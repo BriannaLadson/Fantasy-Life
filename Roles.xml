@@ -230,7 +230,7 @@
 			}
 		</add_loc_inventory>
 		
-		<products type="objectlist">Fruit;Grain;Honey;Sugarcane;Vegetable;</products>
+		<products type="objectlist">Fruit;Fruit_Seed;Grain;Honey;Sugarcane;Sugarcane_Seed;Vegetable;Vegetable_Seed</products>
 	</object>
 	
 	<object name="Miner">
@@ -270,6 +270,27 @@
 		<inherit name="Role" />
 		
 		<alias>Peasant</alias>
+	</object>
+	
+	<object name="Planter">
+		<inherit name="Role" />
+		
+		<alias>Planter</alias>
+		
+		<items type="dictionary">
+			<item>
+				<key>Fruit_Seed</key>
+				<value type="int">3</value>
+			</item>
+			<item>
+				<key>Water</key>
+				<value type="int">3</value>
+			</item>
+		</items>
+		
+		<stats type="stringlist">
+			<value>planting</value>
+		</stats>
 	</object>
 	
 	<object name="Smelter">

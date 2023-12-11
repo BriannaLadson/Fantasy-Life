@@ -41,6 +41,8 @@
 		<can_forage type="boolean">true</can_forage>
 		
 		<hunger_mod type="int">5</hunger_mod>
+		
+		<seed type="object">Fruit_Seed</seed>
 	</object>
 	
 	<object name="Grain">
@@ -107,6 +109,19 @@
 		</reagents>
 	</object>
 	
+	<object name="Fruit_Seed">
+		<inherit name="Seed" />
+		
+		<alias>Fruit Seed</alias>
+		<main_alias>Fruit Seed</main_alias>
+		
+		<hunger_mod type="int">1</hunger_mod>
+		
+		<plant type="object">Fruit</plant>
+		
+		<growth_base type="int">31</growth_base>
+	</object>
+	
 	<object name="Sugarcane">
 		<inherit name="Food" />
 		
@@ -118,6 +133,21 @@
 		<can_forage type="boolean">true</can_forage>
 		
 		<hunger_mod type="int">2</hunger_mod>
+		
+		<seed type="object">Sugarcane_Seed</seed>
+		
+		<growth_base type="int">62</growth_base>
+	</object>
+	
+	<object name="Sugarcane_Seed">
+		<inherit name="Seed" />
+		
+		<alias>Sugarcane Seed</alias>
+		<main_alias>Sugarcane Seed</main_alias>
+		
+		<hunger_mod type="int">1</hunger_mod>
+		
+		<plant type="object">Sugarcane</plant>
 	</object>
 	
 	<object name="Vegetable">
@@ -131,6 +161,21 @@
 		<can_forage type="boolean">true</can_forage>
 		
 		<hunger_mod type="int">5</hunger_mod>
+		
+		<seed type="object">Vegetable_Seed</seed>
+	</object>
+	
+	<object name="Vegetable_Seed">
+		<inherit name="Seed" />
+		
+		<alias>Vegetable Seed</alias>
+		<main_alias>Vegetable Seed</main_alias>
+		
+		<hunger_mod type="int">1</hunger_mod>
+		
+		<plant type="object">Vegetable</plant>
+		
+		<growth_base type="int">31</growth_base>
 	</object>
 	
 	<object name="Water">

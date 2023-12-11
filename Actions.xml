@@ -151,6 +151,53 @@
 		return (success)
 	</function>
 	
+	<function name="Plant_Action" parameters="entity, seed, farm_land" type="boolean">
+		planting_lvl = entity.planting_lvl
+		
+		success = Get_Success(planting_lvl)
+		
+		if (not success) {
+			destroy(seed.name)
+		}
+		
+		else {
+			do (farm_land, "plant_seed", QuickParams("seed", seed))
+		}
+		
+		<!--XP-->
+		Give_XP(entity, "planting")
+		
+		<!--Return-->
+		return (success)
+	</function>
+	
+	<function name="Harvest_Action" parameters="entity, farm_land" type="boolean">
+		planting_lvl = entity.planting_lvl
+		
+		harvest_num = farm_land.harvest_num
+		plant = farm_land.harvest_plant
+		
+		success = false
+		
+		for (i, 1, harvest_num) {
+			success1 = Get_Success(planting_lvl)
+			
+			if (success1) {
+				success = true
+				
+				do(plant, "generate", QuickParams("parent", entity))
+			}
+			
+			farm_land.harvest_num = farm_land.harvest_num - 1
+			
+			<!--XP-->
+			Give_XP(entity, "planting")
+		}
+		
+		<!--Success-->
+		return (success)
+	</function>
+	
 	<function name="Mine_Action" parameters="entity, pickaxe" type="boolean">
 		parent = entity.parent
 		

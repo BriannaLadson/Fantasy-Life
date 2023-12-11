@@ -10,6 +10,114 @@
 		</add_bps>
 	</type>
 	
+	<type name="Building">
+		<inherit name="TA_Room" />
+		
+		<owners type="objectlist" />
+		
+		<can_plant type="boolean">false</can_plant>
+		<can_water type="boolean">true</can_water>
+		
+		<seeds type="int">0</seeds>
+		
+		<seed_max type="int">0</seed_max>
+		
+		<water type="int">0</water>
+		
+		<growing type="boolean">false</growing>
+		
+		<growth_cur type="int">0</growth_cur>
+		<growth_max type="int">0</growth_max>
+		
+		<displayverbs type="stringlist">
+			<value>Look</value>
+		</displayverbs>		
+		
+		<look type="script">
+			<!--Can Plant-->
+			if (this.can_plant) {
+				<!--Seed-->
+				msg("*Seed: " + this.seed.alias)
+				
+				msg(" ")
+				
+				<!--Seed Max-->
+				if (this.seed_max > 0) {
+					seeds = this.seeds
+				
+					msg("*Seeds: " + ToString(seeds) + " / " + ToString(this.seed_max))
+				
+					msg(" ")
+				}
+				
+				<!--Fertility-->
+				if (HasAttribute(this, "fertility")) {
+					msg("*Fertility: " + ToString(this.fertility))
+				
+					msg(" ")
+				}
+				
+				<!--Water-->
+				if (HasAttribute(this, "water")) {
+					msg("*Water: " + ToString(this.water))
+				
+					msg(" ")
+				}
+				
+				<!--Growing-->
+				if (not this.growing) {
+					msg("*Growing: No")
+				}
+				else {
+					msg("*Growing: Yes")
+				}
+				
+				msg(" ")
+				
+				if (not this.seed = None) {
+					rate = this.growth_cur / this.growth_max
+					
+					msg("*Growth Rate: " + ToString(this.growth_cur) + "/" + ToString(this.growth_max))
+				}
+				
+				msg(" ")
+			}
+			
+			<!--Owners-->
+			msg("*Owner(s):")
+			
+			foreach (owner, this.owners) {
+				msg("-" + owner.alias)
+			}
+		</look>
+		
+		<set_dverbs type="script">
+			this.displayverbs = NewStringList()
+			
+			<!--Look-->
+			list add (this.displayverbs, "Look")
+			
+			<!--Can Plant-->
+			if (this.can_plant) {
+				if (not this.growing and 0 >= this.harvest_num) {
+					if (not this.seeds >= this.seed_max) {
+						list add (this.displayverbs, "Plant")
+					}
+				}
+				
+				if (this.seeds > 0) {
+					list add (this.displayverbs, "Remove Seeds")
+				
+					list add (this.displayverbs, "Water")
+				}
+				
+				if (this.harvest_num > 0) {
+					list add (this.displayverbs, "Harvest")
+				}
+			}
+		</set_dverbs>
+	</type>
+	
 	<type name="Creature">
 		<bp_attrs type="stringlist" />
 		
@@ -204,6 +312,10 @@
 				}
 			}
 			
+			if (not item.seed = None) {
+				do(item.seed, "generate", QuickParams("parent", this))
+			}
+			
 			destroy(item.name)
 		</consume>
 	</type>
@@ -270,6 +382,8 @@
 		<inherit name="editor_object" />
 		
 		<has_material type="boolean">false</has_material>
+		
+		<seed type="object">None</seed>
 		
 		<material type="object">None</material>
 		
@@ -529,6 +643,12 @@
 		<mineral_chance type="int">100</mineral_chance>
 	</type>
 	
+	<type name="Seed">
+		<inherit name="Food" />
+		
+		<growth_base type="int">0</growth_base>
+	</type>
+	
 	<type name="Tool">
 		<inherit name="Item" />
 		
@@ -568,16 +688,15 @@
 		</add_items>
 		
 		<add_stats type="script">
-			max = 10
-			
-			if (not DoesInherit(entity, "editor_player")) {
-				max = 100 
-			}
-			
 			foreach (attr, this.stats) {
-				mod = GetRandomInt(0, max)
-				
-				do(entity, "mod_stat_lvl", QuickParams("attr", attr, "mod", mod))
+				if (entity = player) {
+					do(entity, "mod_stat_lvl", QuickParams("attr", attr, "mod", 9))
+				}
+				else {
+					mod = GetRandomInt(0, 100)
+					
+					do(entity, "mod_stat_lvl", QuickParams("attr", attr, "mod", mod))
+				}
 			}
 		</add_stats>
 		

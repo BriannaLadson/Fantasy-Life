@@ -182,6 +182,7 @@
 	<function name="Midnight_Update">
 		if (game.hour_num = 0 and game.minute_num = 0) {
 			Add_Locs_Inventory()
+			Update_Farm_Lands()
 		}
 	</function>
 </library>
